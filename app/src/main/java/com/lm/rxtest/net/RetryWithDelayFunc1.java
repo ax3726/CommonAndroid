@@ -10,7 +10,7 @@ import rx.functions.Func1;
 
 
 /**
- * Created by zk on 2016/6/2.
+ * Created by lm on 2017/11/22.
  * Description：
  */
 public class RetryWithDelayFunc1 implements Func1<Observable<? extends Throwable>, Observable<?>> {

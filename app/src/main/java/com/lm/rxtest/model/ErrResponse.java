@@ -1,7 +1,7 @@
 package com.lm.rxtest.model;
 
 /**
- * Created by zk on 2017/6/1.
+ * Created by lm on 2017/11/22.
  * Description：错误信息
  */
 public class ErrResponse
