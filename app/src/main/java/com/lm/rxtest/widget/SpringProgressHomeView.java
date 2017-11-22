@@ -8,8 +8,6 @@ import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
 import android.graphics.RectF;
-import android.os.Handler;
-import android.os.Message;
 import android.util.AttributeSet;
 import android.view.View;
 
@@ -146,16 +144,17 @@ public class SpringProgressHomeView extends View {
      * @param currentCount
      */
     public void setCurrentCount(float currentCount) {
-        this.maxAnCount = currentCount > maxCount ? maxCount : currentCount;
-        anCount = 0;
-        mHandler.sendEmptyMessage(0);
+        this.currentCount = currentCount > maxCount ? maxCount : currentCount;
+       // anCount = 0;
+       // mHandler.sendEmptyMessage(0);
+        invalidate();
     }
 
     private float maxAnCount = 0;
     private float anCount = 0;
 
 
-    private Handler mHandler = new Handler() {
+   /* private Handler mHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
@@ -172,7 +171,7 @@ public class SpringProgressHomeView extends View {
             }
 
         }
-    };
+    };*/
 
 
     public float getMaxCount() {

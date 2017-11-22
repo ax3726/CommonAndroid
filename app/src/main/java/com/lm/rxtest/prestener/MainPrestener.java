@@ -12,8 +12,10 @@ public class MainPrestener extends BasePresenter<IMainView> {
 
     public void getUserInfo() {
         Api.getApi().search("15170193726", "fffffff")
+
                 .compose(callbackOnIOThread())
                 .compose(verifyOnMainThread())
+
                 .subscribe(new NetSubscriber<UserInfoModel>() {
                     @Override
                     public void onNext(UserInfoModel userInfoModel) {
@@ -22,7 +24,20 @@ public class MainPrestener extends BasePresenter<IMainView> {
                     }
                 });
     }
+    public void getUserInfo1() {
+        Api.getApi().search("15170193726", "fffffff")
 
+                .compose(callbackOnIOThread())
+                .compose(verifyOnMainThread())
+
+                .subscribe(new NetSubscriber<UserInfoModel>() {
+                    @Override
+                    public void onNext(UserInfoModel userInfoModel) {
+                        super.onNext(userInfoModel);
+                        getView().getUserInfo1(userInfoModel);
+                    }
+                });
+    }
     public void longin() {
         Api.getApi().search("15170193726", "fffffff")
                 .compose(callbackOnIOThread())

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="DialogBaseStyle"  parent="@android:style/Theme.Holo.Light.Dialog">
+        <item name="android:windowFrame">@null</item><!-- 设置无边框 -->
+        <item name="android:windowNoTitle">true</item><!-- 设置无标题 -->
+        <item name="android:windowIsFloating">true</item><!-- 设置浮动窗口 -->
+        <item name="android:backgroundDimEnabled">true</item><!-- 设置屏幕变暗 -->
+        <item name="android:windowBackground">@android:color/transparent</item>
+    </style>
+    <style name="DialogBaseStyle1"  parent="@android:style/Theme.Holo.Dialog.NoActionBar">
+
+        <item name="android:windowIsFloating">true</item><!-- 设置浮动窗口 -->
+        <item name="android:backgroundDimEnabled">true</item><!-- 设置屏幕变暗 -->
+        <item name="android:windowBackground">@android:color/transparent</item>
+    </style>
+    <style name="DialogBaseStyle_Loading"  parent="DialogBaseStyle">
+        <item name="android:backgroundDimEnabled">true</item><!-- 设置屏幕变暗 -->
+    </style>
+    <declare-styleable name="FlyBanner">
+        <attr name="points_visibility" format="boolean"/>
+        <attr name="points_position" format="enum">
+            <enum name="CENTER" value="0"/>
+            <enum name="LEFT" value="1"/>
+            <enum name="RIGHT" value="2"/>
+        </attr>
+        <attr name="points_container_background" format="reference|color"/>
+    </declare-styleable>
+    <!--指示器-->
+    <declare-styleable name="PagerSlidingTabStrip">
+        <attr name="pstsIndicatorColor" format="color" />
+        <attr name="pstsUnderlineColor" format="color" />
+        <attr name="pstsDividerColor" format="color" />
+        <attr name="pstsIndicatorHeight" format="dimension" />
+        <attr name="pstsUnderlineHeight" format="dimension" />
+        <attr name="pstsDividerPadding" format="dimension" />
+        <attr name="pstsTabPaddingLeftRight" format="dimension" />
+        <attr name="pstsScrollOffset" format="dimension" />
+        <attr name="pstsTabBackground" format="reference" />
+        <attr name="pstsShouldExpand" format="boolean" />
+        <attr name="pstsTextAllCaps" format="boolean" />
+        <attr name="zmsTabTextSize"   format="dimension" />
+        <attr name="zmsTabTextColor"  format="color" />
+        <attr name="zmsSelectedTabTextSize"   format="dimension" />
+        <attr name="zmsSelectedTabTextColor" format="color" />
+    </declare-styleable>
+    <declare-styleable name="CircularImage">
+        <attr name="border_width" format="dimension" />
+        <attr name="border_color" format="color" />
+    </declare-styleable>
+
+
+
+    <declare-styleable name="webview_is_cloumn">
+        <attr name="is_column" format="boolean" />
+    </declare-styleable>
+    <declare-styleable name="LoadingView">
+        <attr name="loadingText" format="string|reference"/>
+        <attr name="loadingTextAppearance" format="reference"/>
+        <attr name="delay" format="integer|reference"/>
+    </declare-styleable>
+
+<!--上下翻滚广告-->
+    <declare-styleable name="MarqueeViewStyle">
+        <attr name="mvInterval" format="integer|reference"/>
+        <attr name="mvAnimDuration" format="integer|reference"/>
+        <attr name="mvTextSize" format="dimension|reference"/>
+        <attr name="mvTextColor" format="color|reference"/>
+        <attr name="mvGravity">
+            <enum name="left" value="0"/>
+            <enum name="center" value="1"/>
+            <enum name="right" value="2"/>
+        </attr>
+    </declare-styleable>
+
+</resources>

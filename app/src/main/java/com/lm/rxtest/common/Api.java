@@ -43,6 +43,7 @@ public class Api {
                     .addCallAdapterFactory(rxJavaCallAdapterFactory)
                     .build();
 
+
             apiService = retrofit.create(ApiService.class);
         }
         return apiService;
