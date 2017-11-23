@@ -11,4 +11,5 @@ public interface IMainView extends BaseView {
     void getUserInfo(UserInfoModel userInfoModel);
     void getUserInfo1(UserInfoModel userInfoModel);
     void login();
+    void downProgress(long total,long precent);
 }

@@ -18,11 +18,8 @@ import com.lm.rxtest.widget.ColorEvaluator;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 import rx.Observable;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
 
 public class MainActivity extends BaseActivity<MainPrestener, ActivityMainBinding> implements IMainView {
 
@@ -104,11 +101,13 @@ public class MainActivity extends BaseActivity<MainPrestener, ActivityMainBindin
 
         RxViewClick(mBinding.btn)
                 .subscribe(aVoid -> {
-                    mStateModel.setEmptyState(EmptyState.PROGRESS);
+                  /*  mStateModel.setEmptyState(EmptyState.PROGRESS);
                     Observable.timer(1000, TimeUnit.MILLISECONDS)
                             .subscribeOn(Schedulers.newThread())
                             .observeOn(AndroidSchedulers.mainThread())
-                            .subscribe(aLong -> mPresenter.getUserInfo());
+                            .subscribe(aLong -> mPresenter.getUserInfo());*/
+                    mPresenter.downLoadFile();
+
                 });
 
 
@@ -133,6 +132,16 @@ public class MainActivity extends BaseActivity<MainPrestener, ActivityMainBindin
         showToast("跳转主界面");
 
 
+    }
+
+    @Override
+    public void downProgress(long total, long precent) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                mBinding.txt.setText("总大小:" + total + " \t\t\t\t进度:" + precent);
+            }
+        });
     }
 
 

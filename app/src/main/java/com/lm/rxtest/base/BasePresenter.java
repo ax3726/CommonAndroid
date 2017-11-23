@@ -129,6 +129,7 @@ public class BasePresenter<V extends BaseView> implements IBasePresenter<V>, Act
             }
         }
 
+
         @Override
         public void onError(Throwable e) {
             e.printStackTrace();

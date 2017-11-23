@@ -12,7 +12,7 @@ import ml.gsy.com.library.utils.Utils;
 
 public class MyApplication extends Application {
     private static MyApplication instance;
-
+    public static  String Base_Path="";
     public static MyApplication getInstance() {
         return instance;
     }
@@ -21,6 +21,8 @@ public class MyApplication extends Application {
     public void onCreate() {
         super.onCreate();
         instance=this;
+        Base_Path = Utils.getCacheDirectory(this, Environment.DIRECTORY_DOCUMENTS).getAbsolutePath();
+
         //缓存初始化
         CacheUtils.getInstance().init(CacheUtils.CacheMode.CACHE_MAX,
                 Utils.getCacheDirectory(this, Environment.DIRECTORY_DOCUMENTS).getAbsolutePath());
