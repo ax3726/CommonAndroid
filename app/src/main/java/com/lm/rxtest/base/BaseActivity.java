@@ -17,9 +17,9 @@ import com.bumptech.glide.DrawableTypeRequest;
 import com.bumptech.glide.Glide;
 import com.jakewharton.rxbinding.view.RxView;
 import com.lm.rxtest.R;
+import com.lm.rxtest.base.slide.SlideBackActivity;
 import com.lm.rxtest.databinding.WidgetLayoutEmptyBinding;
 import com.lm.rxtest.widget.TitleBarLayout;
-import com.trello.rxlifecycle.components.support.RxAppCompatActivity;
 
 import java.util.concurrent.TimeUnit;
 
@@ -30,7 +30,7 @@ import rx.Observable;
  * Description:
  */
 
-public abstract class BaseActivity<P extends BasePresenter, B extends ViewDataBinding> extends RxAppCompatActivity implements BaseView {
+public abstract class BaseActivity<P extends BasePresenter, B extends ViewDataBinding> extends SlideBackActivity implements BaseView {
 
     protected P mPresenter;
     protected B mBinding;

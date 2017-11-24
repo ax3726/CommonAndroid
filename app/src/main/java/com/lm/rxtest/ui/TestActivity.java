@@ -11,13 +11,23 @@ public class TestActivity extends BaseActivity<BasePresenter, ActivityTestBindin
     protected BasePresenter createPresenter() {
         return null;
     }
+
     @Override
     protected boolean isPrestener() {
         return false;
     }
+
     @Override
     public int getLayoutId() {
         return R.layout.activity_test;
     }
 
+
+    @Override
+    protected void initData() {
+        super.initData();
+        setSlideable(false);
+
+
+    }
 }
