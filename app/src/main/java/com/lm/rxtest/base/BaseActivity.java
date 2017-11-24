@@ -1,6 +1,7 @@
 package com.lm.rxtest.base;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
 import android.os.Bundle;
@@ -46,8 +47,10 @@ public abstract class BaseActivity<P extends BasePresenter, B extends ViewDataBi
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mPresenter = createPresenter();
-        mPresenter.attachView(this);
+        if (isPrestener()) {
+            mPresenter = createPresenter();
+            mPresenter.attachView(this);
+        }
         aty = this;
         setActivityView();
         initTitleBar();
@@ -111,6 +114,10 @@ public abstract class BaseActivity<P extends BasePresenter, B extends ViewDataBi
     }
 
 
+    protected void startActivity(Class<?> cls) {
+        startActivity(new Intent(aty, cls));
+    }
+
     public Observable RxViewClick(View view) {
         return RxView.clicks(view)
                 .throttleFirst(500L, TimeUnit.MILLISECONDS);
@@ -133,10 +140,23 @@ public abstract class BaseActivity<P extends BasePresenter, B extends ViewDataBi
     }
 
 
+    /**
+     * 是否显示头部
+     *
+     * @return
+     */
     protected boolean isTitleBar() {
         return true;
     }
 
+    /**
+     * 是否加载Prestener
+     *
+     * @return
+     */
+    protected boolean isPrestener() {
+        return true;
+    }
 
     @Override
     public void showToast(final String s) {
@@ -231,6 +251,8 @@ public abstract class BaseActivity<P extends BasePresenter, B extends ViewDataBi
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        mPresenter.detachView();
+        if (isPrestener()) {
+            mPresenter.detachView();
+        }
     }
 }

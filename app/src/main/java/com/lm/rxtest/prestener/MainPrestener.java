@@ -1,5 +1,6 @@
 package com.lm.rxtest.prestener;
 
+import android.net.Uri;
 import android.util.Log;
 
 import com.lm.rxtest.base.BasePresenter;
@@ -97,6 +98,9 @@ public class MainPrestener extends BasePresenter<IMainView> {
      */
     public void downLoadFile() {
         String all_url="https://github.com/wzgiceman/RxjavaRetrofitDemo-master/archive/master.zip";//全路径
+
+        Uri url = Uri.parse(all_url);
+
         //拆分两个
         String base_url="https://github.com/";
         String jie_url="wzgiceman/RxjavaRetrofitDemo-master/archive/master.zip";

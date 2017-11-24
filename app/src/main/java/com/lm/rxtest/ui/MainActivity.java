@@ -106,8 +106,12 @@ public class MainActivity extends BaseActivity<MainPrestener, ActivityMainBindin
                             .subscribeOn(Schedulers.newThread())
                             .observeOn(AndroidSchedulers.mainThread())
                             .subscribe(aLong -> mPresenter.getUserInfo());*/
-                    mPresenter.downLoadFile();
+                 /*   String all_url = "https://github.com/wzgiceman/RxjavaRetrofitDemo-master/archive/master.zip";//全路径
 
+                    Uri url = Uri.parse(all_url);
+                    showToast("host:" + url.getHost() + "\t\t\t" + url.getPath());*/
+                    // mPresenter.downLoadFile();
+                    startActivity(TestActivity.class);
                 });
 
 
