@@ -1,6 +1,4 @@
-# 安卓通用框架
-
-# 该项目是用rxjava+retrofit+MVP+dataBinding搭建
+# 该框架是由rxjava+retrofit+MVP+dataBinding搭建
 
 ### 封装的内容
    1.找控件用databinding代替butterknife<br>  
