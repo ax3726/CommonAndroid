@@ -1,18 +1,26 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <LinearLayout
+
+
+    <android.support.v7.widget.Toolbar
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        app:contentInsetEnd="0dp"
+        app:contentInsetStart="0dp"
+        android:paddingTop="@dimen/head_top"
+        android:background="@color/colorPrimary"
+     >
+
 
         <LinearLayout
-            android:id="@+id/ll_color"
+            android:id="@+id/lly_head"
+
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:background="@color/colorWhite"
-            android:orientation="horizontal"
-            tools:ignore="InvalidId">
+
+            android:orientation="horizontal">
 
             <LinearLayout
                 android:id="@+id/lly_left"
@@ -34,7 +42,7 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="标题"
-                android:textColor="@color/color4d4d4d"
+                android:textColor="@color/colorWhite"
                 android:textSize="16dp" />
 
             <LinearLayout
@@ -63,7 +71,7 @@
                     android:layout_marginRight="8dp"
                     android:gravity="center_vertical|right"
                     android:singleLine="true"
-                    android:textColor="@color/color4d4d4d"
+                    android:textColor="@color/colorWhite"
                     android:textSize="14dp"
                     android:visibility="gone" />
             </LinearLayout>
@@ -84,10 +92,13 @@
             </LinearLayout>
         </LinearLayout>
 
+
         <View
             android:id="@+id/v_xian"
             android:layout_width="match_parent"
             android:layout_height="0.5dp"
-            android:background="@color/colorcccccc" />
-    </LinearLayout>
+            android:background="@color/colorcccccc"
+            android:visibility="gone" />
+    </android.support.v7.widget.Toolbar>
+
 </layout>

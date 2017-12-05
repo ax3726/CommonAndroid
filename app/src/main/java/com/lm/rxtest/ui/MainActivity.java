@@ -19,6 +19,7 @@ import com.lm.rxtest.widget.ColorEvaluator;
 import java.util.ArrayList;
 import java.util.List;
 
+import ml.gsy.com.library.views.AndroidBug5497Workaround;
 import rx.Observable;
 
 public class MainActivity extends BaseActivity<MainPrestener, ActivityMainBinding> implements IMainView {
@@ -49,14 +50,17 @@ public class MainActivity extends BaseActivity<MainPrestener, ActivityMainBindin
                 showToast("你点击了更多！");
             }
         });
-
-
     }
 
     @Override
     protected void initData() {
+       AndroidBug5497Workaround.assistActivity(findViewById(android.R.id.content));// 解决输入法弹出时布局被顶上去的BUG
         loadImag("图片路径", mBinding.imgShow);
-        mStateModel.setEmptyState(EmptyState.PROGRESS);
+
+        mStateModel.setEmptyState(EmptyState.PROGRESS);//设置页面状态为加载中
+        //mStateModel.setEmptyState(EmptyState.NORMAL);//设置页面状态为正常
+        //mStateModel.setEmptyState(EmptyState.EMPTY);//设置页面状态为暂无数据
+        //EmptyState类里面可自定义添加状态
 
         new Handler().postDelayed(new Runnable() {
             @Override

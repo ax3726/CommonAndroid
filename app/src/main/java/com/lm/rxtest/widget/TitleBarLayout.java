@@ -32,8 +32,10 @@ public class TitleBarLayout extends LinearLayout {
 
     public void init() {
         mBinding = DataBindingUtil.inflate(LayoutInflater.from(mContext), R.layout.comon_tarbar_layout, this, true);
+      /*  if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {//设置阴影
+            mBinding.flyLine.setElevation(15f);
+        }*/
     }
-
 
     /**
      * 设置标题

@@ -7,10 +7,6 @@ import com.lm.rxtest.R;
 import com.lm.rxtest.base.BaseActivity;
 import com.lm.rxtest.base.BasePresenter;
 import com.lm.rxtest.databinding.ActivityTestBinding;
-import com.lm.rxtest.widget.MyHeadView;
-import com.scwang.smartrefresh.layout.api.RefreshLayout;
-import com.scwang.smartrefresh.layout.listener.OnLoadmoreListener;
-import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,21 +29,34 @@ public class TestActivity extends BaseActivity<BasePresenter, ActivityTestBindin
         return false;
     }
 
+    /**
+     * 不添加通用的头部
+     * @return
+     */
+    @Override
+    protected boolean isTitleBar() {
+        return false;
+    }
+
     @Override
     public int getLayoutId() {
         return R.layout.activity_test;
     }
 
+    @Override
+    public void setSlideable(boolean slideable) {
+        super.setSlideable(false);
+    }
 
     @Override
     protected void initData() {
         super.initData();
-        setSlideable(false);
 
-        for (int i = 0; i < 10; i++) {
+
+
+        for (int i = 0; i < 100; i++) {
             mDataList.add("");
         }
-
         mAdapter = new CommonAdapter<String>(aty, R.layout.item_test, mDataList) {
             @Override
             protected void convert(ViewHolder holder, String s, int position) {
@@ -55,10 +64,11 @@ public class TestActivity extends BaseActivity<BasePresenter, ActivityTestBindin
                 txt.setText("我是第" + (position + 1) + "项");
             }
         };
-        mBinding.recyclerview.setLayoutManager(new LinearLayoutManager(aty));
-        mBinding.recyclerview.setAdapter(mAdapter);
+        mBinding.rcBody.setLayoutManager(new LinearLayoutManager(aty));
+        mBinding.rcBody.setNestedScrollingEnabled(false);
+        mBinding.rcBody.setAdapter(mAdapter);
 
-
+/*
         //设置 Header 样式
         mBinding.refreshLayout.setRefreshHeader(new MyHeadView(this));
         //设置 Footer 样式
@@ -92,7 +102,7 @@ public class TestActivity extends BaseActivity<BasePresenter, ActivityTestBindin
                 }
 
             }
-        });
+        });*/
 
     }
 }

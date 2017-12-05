@@ -106,10 +106,7 @@ public class StateModel extends BaseObservable {
                 return mContext.getString(R.string.server_not_avaliabe);
             case EmptyState.EXPAND:
                 return mExpand;
-            case EmptyState.EXPAND1:
-                return "没有银行卡,点击下方按钮添加!";
-            case EmptyState.EXPAND2:
-                return "没有找到数据呢!";
+
             default:
                 return mContext.getString(R.string.no_data);
         }
