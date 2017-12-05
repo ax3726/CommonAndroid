@@ -9,7 +9,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -85,7 +84,6 @@ public abstract class BaseActivity<P extends BasePresenter, B extends ViewDataBi
             emptyBinding.setStateModel(mStateModel);
             fly.addView(emptyBinding.getRoot());
             lly.addView(fly);
-            fly.setDescendantFocusability(ViewGroup.FOCUS_BEFORE_DESCENDANTS);
             setContentView(lly);
             mTitleBarLayout.setLeftListener(new View.OnClickListener() {
                 @Override
@@ -95,7 +93,6 @@ public abstract class BaseActivity<P extends BasePresenter, B extends ViewDataBi
             });
         } else {
             FrameLayout fly = new FrameLayout(aty);
-            fly.setDescendantFocusability(ViewGroup.FOCUS_BEFORE_DESCENDANTS);
             fly.addView(mBinding.getRoot());
             WidgetLayoutEmptyBinding emptyBinding = DataBindingUtil.inflate(getLayoutInflater(), R.layout.widget_layout_empty, null, false);
             emptyBinding.setStateModel(mStateModel);

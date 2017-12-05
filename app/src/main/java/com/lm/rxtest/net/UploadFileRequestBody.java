@@ -13,6 +13,8 @@ import okio.Sink;
 
 /**
  * Created by Administrator on 2017/11/23 0023.
+ * 上传文件请求体
+ * 支持上传文件进度监听
  */
 
 public class UploadFileRequestBody extends RequestBody {
@@ -20,7 +22,6 @@ public class UploadFileRequestBody extends RequestBody {
     private ProgressListener mProgressListener;
 
     private BufferedSink bufferedSink;
-
 
     public UploadFileRequestBody(File file, ProgressListener progressListener) {
         this.mRequestBody = RequestBody.create(MediaType.parse("multipart/form-data"), file);

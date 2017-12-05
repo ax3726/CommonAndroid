@@ -15,15 +15,15 @@ import rx.functions.Action1;
 import rx.schedulers.Schedulers;
 
 /**
- * 作者:王浩 邮件:bingoogolapple@gmail.com
- * 创建时间:16/12/16 上午10:58
- * 描述:
+ * 下载响应体
+ * 支持进度监听
  */
 public class DownloadResponseBody extends ResponseBody {
     private final ResponseBody mResponseBody;
     private BufferedSource mBufferedSource;
     private DownLoadListener mDownLoadListener;
-    public DownloadResponseBody(ResponseBody responseBody,DownLoadListener downLoadListener) {
+
+    public DownloadResponseBody(ResponseBody responseBody, DownLoadListener downLoadListener) {
         mResponseBody = responseBody;
         mDownLoadListener = downLoadListener;
     }
@@ -73,7 +73,8 @@ public class DownloadResponseBody extends ResponseBody {
             }
         };
     }
-    public interface DownLoadListener{
+
+    public interface DownLoadListener {
         void progress(long total, long progress);
     }
 }

@@ -10,7 +10,7 @@
         app:contentInsetEnd="0dp"
         app:contentInsetStart="0dp"
         android:paddingTop="@dimen/head_top"
-        android:background="@color/colorPrimary"
+        android:background="@drawable/shape_head_bg"
      >
 
 

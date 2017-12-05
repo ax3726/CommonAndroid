@@ -43,10 +43,6 @@ public class TestActivity extends BaseActivity<BasePresenter, ActivityTestBindin
         return R.layout.activity_test;
     }
 
-    @Override
-    public void setSlideable(boolean slideable) {
-        super.setSlideable(false);
-    }
 
     @Override
     protected void initData() {
