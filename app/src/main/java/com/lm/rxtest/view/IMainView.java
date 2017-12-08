@@ -8,8 +8,11 @@ import com.lm.rxtest.model.UserInfoModel;
  */
 
 public interface IMainView extends BaseView {
-    void getUserInfo(UserInfoModel userInfoModel);
+    void getUserInfo(UserInfoModel userInfoModel);//获取
+
     void getUserInfo1(UserInfoModel userInfoModel);
+
     void login();
-    void downProgress(long total,long precent);
+
+    void downProgress(long total, long precent);
 }

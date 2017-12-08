@@ -1,11 +1,9 @@
 package com.lm.rxtest.ui;
 
-import android.animation.ObjectAnimator;
 import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 
-import com.jakewharton.rxbinding.widget.RxTextView;
 import com.lm.rxtest.R;
 import com.lm.rxtest.base.BaseActivity;
 import com.lm.rxtest.base.EmptyState;
@@ -14,7 +12,6 @@ import com.lm.rxtest.databinding.ActivityMainBinding;
 import com.lm.rxtest.model.UserInfoModel;
 import com.lm.rxtest.prestener.MainPrestener;
 import com.lm.rxtest.view.IMainView;
-import com.lm.rxtest.widget.ColorEvaluator;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,15 +44,28 @@ public class MainActivity extends BaseActivity<MainPrestener, ActivityMainBindin
         mTitleBarLayout.setRightListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showToast("你点击了更多！");
+                showToast("你点击了更多");
+
             }
         });
     }
 
     @Override
     protected void initData() {
-       AndroidBug5497Workaround.assistActivity(findViewById(android.R.id.content));// 解决输入法弹出时布局被顶上去的BUG
-        loadImag("图片路径", mBinding.imgShow);
+
+        mBinding.btn1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(MaterListActivity.class);
+            }
+        });
+        mBinding.btn2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(TestActivity.class);
+            }
+        });
+        AndroidBug5497Workaround.assistActivity(findViewById(android.R.id.content));// 解决输入法弹出时布局被顶上去的BUG
 
         mStateModel.setEmptyState(EmptyState.PROGRESS);//设置页面状态为加载中
         //mStateModel.setEmptyState(EmptyState.NORMAL);//设置页面状态为正常
@@ -84,12 +94,6 @@ public class MainActivity extends BaseActivity<MainPrestener, ActivityMainBindin
         });
 
 
-        ObjectAnimator anim2 = ObjectAnimator.ofObject(mBinding.txt, "textColor", new ColorEvaluator(),
-                "#0000FF", "#FF0000");
-        anim2.setDuration(3000);
-        anim2.start();
-        mBinding.springProgressView.setMaxCount(100);
-        mBinding.springProgressView.setCurrentCount(5);
         List<String> list = new ArrayList<>();
 
         for (int i = 0; i < 20; i++) {
@@ -97,6 +101,7 @@ public class MainActivity extends BaseActivity<MainPrestener, ActivityMainBindin
         }
         Observable.from(list)
                 .subscribe(s -> Log.e("m1g1", s));
+/*
 
         RxTextView.textChanges(mBinding.etTxt)
                 .filter(charSequence -> !"11".equals(charSequence.toString()))
@@ -105,18 +110,23 @@ public class MainActivity extends BaseActivity<MainPrestener, ActivityMainBindin
 
         RxViewClick(mBinding.btn)
                 .subscribe(aVoid -> {
-                  /*  mStateModel.setEmptyState(EmptyState.PROGRESS);
+                  */
+/*  mStateModel.setEmptyState(EmptyState.PROGRESS);
                     Observable.timer(1000, TimeUnit.MILLISECONDS)
                             .subscribeOn(Schedulers.newThread())
                             .observeOn(AndroidSchedulers.mainThread())
-                            .subscribe(aLong -> mPresenter.getUserInfo());*/
-                 /*   String all_url = "https://github.com/wzgiceman/RxjavaRetrofitDemo-master/archive/master.zip";//全路径
+                            .subscribe(aLong -> mPresenter.getUserInfo());*//*
+
+                 */
+/*   String all_url = "https://github.com/wzgiceman/RxjavaRetrofitDemo-master/archive/master.zip";//全路径
 
                     Uri url = Uri.parse(all_url);
-                    showToast("host:" + url.getHost() + "\t\t\t" + url.getPath());*/
+                    showToast("host:" + url.getHost() + "\t\t\t" + url.getPath());*//*
+
                     // mPresenter.downLoadFile();
                     startActivity(TestActivity.class);
                 });
+*/
 
 
     }
@@ -144,12 +154,7 @@ public class MainActivity extends BaseActivity<MainPrestener, ActivityMainBindin
 
     @Override
     public void downProgress(long total, long precent) {
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                mBinding.txt.setText("总大小:" + total + " \t\t\t\t进度:" + precent);
-            }
-        });
+        //runOnUiThread(() -> mBinding.txt.setText("总大小:" + total + " \t\t\t\t进度:" + precent));
     }
 
 

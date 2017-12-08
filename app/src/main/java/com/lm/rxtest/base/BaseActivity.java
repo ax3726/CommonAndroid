@@ -56,6 +56,7 @@ public abstract class BaseActivity<P extends BasePresenter, B extends ViewDataBi
             //设置状态栏颜色
             //getWindow().setStatusBarColor(color);
         }
+
         if (isPrestener()) {
             mPresenter = createPresenter();
             mPresenter.attachView(this);

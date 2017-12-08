@@ -97,17 +97,16 @@ public class MainPrestener extends BasePresenter<IMainView> {
      * 文件下载
      */
     public void downLoadFile() {
-        String all_url="https://github.com/wzgiceman/RxjavaRetrofitDemo-master/archive/master.zip";//全路径
+        String all_url = "https://github.com/wzgiceman/RxjavaRetrofitDemo-master/archive/master.zip";//全路径
 
         Uri url = Uri.parse(all_url);
 
         //拆分两个
-        String base_url="https://github.com/";
-        String jie_url="wzgiceman/RxjavaRetrofitDemo-master/archive/master.zip";
-        Api.getDownLoadApi(base_url,(total, progress) -> {
+        String base_url = "https://github.com/";
+        String jie_url = "wzgiceman/RxjavaRetrofitDemo-master/archive/master.zip";
+        Api.getDownLoadApi(base_url, (total, progress) -> {
             getView().downProgress(total, progress * 100 / total);
-        })
-                .download(jie_url)
+        }).download(jie_url)
                 .compose(callbackOnIOThread())
                 .subscribe(new NetSubscriber<ResponseBody>() {
                     @Override

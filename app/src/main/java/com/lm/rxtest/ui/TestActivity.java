@@ -1,6 +1,7 @@
 package com.lm.rxtest.ui;
 
 import android.support.v7.widget.LinearLayoutManager;
+import android.view.View;
 import android.widget.TextView;
 
 import com.lm.rxtest.R;
@@ -31,6 +32,7 @@ public class TestActivity extends BaseActivity<BasePresenter, ActivityTestBindin
 
     /**
      * 不添加通用的头部
+     *
      * @return
      */
     @Override
@@ -38,16 +40,30 @@ public class TestActivity extends BaseActivity<BasePresenter, ActivityTestBindin
         return false;
     }
 
+
     @Override
     public int getLayoutId() {
         return R.layout.activity_test;
     }
 
-
     @Override
     protected void initData() {
         super.initData();
 
+        setSupportActionBar(mBinding.toolbar);
+
+        mBinding.collapsingToolbarLayout.setTitle("这个是标题");
+        mBinding.collapsingToolbarLayout.setCollapsedTitleTextColor(getResources().getColor(R.color.colorWhite));
+        mBinding.collapsingToolbarLayout.setExpandedTitleColor(getResources().getColor(R.color.colorcccccc));
+        mBinding.toolbar.setSubtitle("这是标题");
+        mBinding.toolbar.setNavigationIcon(R.drawable.back_icon);
+        mBinding.toolbar.setTitle("标题");
+        mBinding.toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
 
         for (int i = 0; i < 100; i++) {

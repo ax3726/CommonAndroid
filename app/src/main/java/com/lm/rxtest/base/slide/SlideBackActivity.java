@@ -13,7 +13,7 @@ import com.lm.rxtest.R;
 
 /**
  * 这个Activity实现了可以滑动左侧边缘退出Activity的功能，类似iOS的交互行为。
- *
+ * <p>
  * <p>调用 {@link #setSlideable(boolean)} 方法来设置是否支持滑动 </p>
  * <p>调用 {@link #setPreviousActivitySlideFollow(boolean)}
  * 方法来设置前一个activity是否跟随滑动 </p>
@@ -96,6 +96,9 @@ public class SlideBackActivity extends ActivityInterfaceImpl implements SlideFra
         }
     };
 
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -103,6 +106,7 @@ public class SlideBackActivity extends ActivityInterfaceImpl implements SlideFra
 
     @Override
     public void setContentView(View view) {
+        mSlideable = isSlideable();
         if (mSlideable) {
             // 如果找不到前一个activity的content view，则不能滑动，典型的场景就是由外部app打开单独的一界面
             // 例如从通知栏中打开消息中心界面，所以可能当前进程就一个消息中心的activity，此时就不能滑动退出
@@ -214,7 +218,7 @@ public class SlideBackActivity extends ActivityInterfaceImpl implements SlideFra
      * 是否可以滑动关闭
      */
     public boolean isSlideable() {
-        return mSlideable;
+        return true;
     }
 
     /**
@@ -313,7 +317,7 @@ public class SlideBackActivity extends ActivityInterfaceImpl implements SlideFra
         if (activity == mPreviousActivity) {
             if (DEBUG) {
                 Log.d(TAG, "onPreviousActivityDestroyed(), previous activity destroy. Current activity = "
-                    + this.getLocalClassName() + " Previous activity = " + activity.getLocalClassName());
+                        + this.getLocalClassName() + " Previous activity = " + activity.getLocalClassName());
             }
 
             release();
@@ -322,8 +326,8 @@ public class SlideBackActivity extends ActivityInterfaceImpl implements SlideFra
             mPreviousActivity = getPreviousPreviewActivity();
 
             if (DEBUG) {
-                Log.i(TAG , "    try to find previous activity = "
-                    + ((mPreviousActivity != null) ? mPreviousActivity.getLocalClassName() : "null"));
+                Log.i(TAG, "    try to find previous activity = "
+                        + ((mPreviousActivity != null) ? mPreviousActivity.getLocalClassName() : "null"));
             }
 
             // 找不到前一个activity，则不能滑动

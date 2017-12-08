@@ -17,9 +17,12 @@
                 android:id="@+id/collapsing_toolbar_layout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@mipmap/ic_launcher"
-                app:contentScrim="#F03843"
-                app:layout_scrollFlags="scroll|exitUntilCollapsed">
+                android:background="@drawable/fengjing"
+                app:contentScrim="@color/colorPrimaryDark"
+
+                app:layout_scrollFlags="scroll|exitUntilCollapsed"
+
+                app:title="哈哈">
 
                 <android.support.v7.widget.Toolbar
                     android:id="@+id/toolbar"
@@ -28,11 +31,13 @@
                     android:minHeight="?attr/actionBarSize"
                     app:contentInsetEnd="0dp"
                     app:contentInsetStart="0dp"
-                    app:layout_collapseMode="pin">
+                    app:layout_collapseMode="pin"
+                    >
 
                     <RelativeLayout
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent">
+                        android:layout_height="match_parent"
+                        android:visibility="gone">
 
 
                         <TextView
@@ -69,15 +74,14 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="2dp"
-            android:fillViewport="true"
-            android:overScrollMode="never"
+
+            android:overScrollMode="ifContentScrolls"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/rc_body"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
-            </android.support.v7.widget.RecyclerView>
+                android:layout_height="match_parent"></android.support.v7.widget.RecyclerView>
 
         </android.support.v4.widget.NestedScrollView>
     </android.support.design.widget.CoordinatorLayout>
