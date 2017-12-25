@@ -12,6 +12,13 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <!-- AUTO LAYOUT -->
+        <meta-data
+            android:name="design_width"
+            android:value="1080" />
+        <meta-data
+            android:name="design_height"
+            android:value="1920" />
         <activity
             android:name=".ui.MainActivity"
             android:windowSoftInputMode="adjustResize|stateHidden">
@@ -24,6 +31,7 @@
         <activity android:name=".ui.TestActivity" />
         <activity android:name=".ui.MaterialActivity" />
         <activity android:name=".ui.MaterListActivity"></activity>
+
     </application>
 
 </manifest>
