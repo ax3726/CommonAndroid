@@ -2,15 +2,13 @@ package com.lm.rxtest.base;
 
 import android.support.annotation.NonNull;
 
+import com.lm.rxtest.net.RetryWithDelayFunc1;
 import com.lm.rxtest.net.ex.ApiException;
 import com.lm.rxtest.net.ex.ResultException;
-import com.lm.rxtest.net.RetryWithDelayFunc1;
 import com.trello.rxlifecycle.ActivityEvent;
 import com.trello.rxlifecycle.ActivityLifecycleProvider;
 import com.trello.rxlifecycle.LifecycleTransformer;
 
-import java.lang.ref.Reference;
-import java.lang.ref.WeakReference;
 import java.net.ConnectException;
 import java.net.SocketTimeoutException;
 
@@ -18,7 +16,6 @@ import retrofit2.adapter.rxjava.HttpException;
 import rx.Observable;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Func1;
 import rx.schedulers.Schedulers;
 
 /**
@@ -29,17 +26,16 @@ import rx.schedulers.Schedulers;
 public class BasePresenter<V extends BaseView> implements IBasePresenter<V>, ActivityLifecycleProvider {
 
 
-    protected Reference<V> mView;
+    protected V mView;
 
     @Override
     public void attachView(V view) {
-        mView = new WeakReference<>(view);
+        mView = view;
     }
 
     @Override
     public void detachView() {
         if (mView != null) {
-            mView.clear();
             mView = null;
         }
     }
@@ -50,7 +46,7 @@ public class BasePresenter<V extends BaseView> implements IBasePresenter<V>, Act
      * @return
      */
     protected boolean isViewAttach() {
-        return mView != null && mView.get() != null;
+        return mView != null ;
     }
 
     /**
@@ -59,7 +55,7 @@ public class BasePresenter<V extends BaseView> implements IBasePresenter<V>, Act
      * @return
      */
     protected V getView() {
-        return mView.get();
+        return mView;
     }
 
     @NonNull
@@ -81,38 +77,14 @@ public class BasePresenter<V extends BaseView> implements IBasePresenter<V>, Act
     }
 
 
-    public <T> Observable.Transformer<T, T> callbackOnIOThread() {
-
-        return new Observable.Transformer<T, T>() {
-            @Override
-            public Observable<T> call(Observable<T> tObservable) {
-                return (Observable<T>) tObservable.subscribeOn(Schedulers.io())
-                        .retryWhen(RetryWithDelayFunc1.create())
-                        .filter(new Func1<T, Boolean>() {
-                            @Override
-                            public Boolean call(T t) {
-                                return BasePresenter.this.isViewAttach();
-                            }
-                        }).compose(BasePresenter.this.bindToLifecycle());
-            }
-        };
+    public <T> Observable.Transformer<T, T> callbackOnIOToMainThread() {
+        return tObservable -> (Observable<T>) tObservable.subscribeOn(Schedulers.io())
+                .retryWhen(RetryWithDelayFunc1.create())
+                .filter(t -> BasePresenter.this.isViewAttach()).observeOn(AndroidSchedulers.mainThread()).compose(BasePresenter.this.bindToLifecycle());
     }
 
-    public <T> Observable.Transformer<T, T> verifyOnMainThread() {
-        return new Observable.Transformer<T, T>() {
-            @Override
-            public Observable<T> call(Observable<T> tObservable) {
-                return tObservable.filter(new Func1<T, Boolean>() {
-                    @Override
-                    public Boolean call(T t) {
-                        return BasePresenter.this.isViewAttach();
-                    }
-                }).observeOn(AndroidSchedulers.mainThread());
-            }
-        };
-    }
+    public abstract class BaseNetSubscriber<T> extends Subscriber<T> {
 
-    public abstract class NetSubscriber<T> extends Subscriber<T> {
 
         @Override
         public void onStart() {
@@ -157,4 +129,6 @@ public class BasePresenter<V extends BaseView> implements IBasePresenter<V>, Act
 
         }
     }
+
+
 }

@@ -77,6 +77,29 @@ public class TitleBarLayout extends LinearLayout {
     }
 
     /**
+     * 设置是否显示左边
+     */
+    public void setLeftShow(boolean bl) {
+        mBinding.llyLeft.setVisibility(bl ? VISIBLE : INVISIBLE);
+        mBinding.llyLeft.setClickable(bl);
+    }
+
+    /**
+     * 设置是否显示右边
+     */
+    public void setRightShow(boolean bl) {
+        mBinding.llyRight.setVisibility(bl ? VISIBLE : GONE);
+    }
+
+    /**
+     * 设置是否显示更多
+     */
+    public void setMoreShow(boolean bl) {
+        mBinding.llyMore.setVisibility(bl ? VISIBLE : GONE);
+    }
+
+
+    /**
      * 设置左边的点击事件
      *
      * @param clickListener

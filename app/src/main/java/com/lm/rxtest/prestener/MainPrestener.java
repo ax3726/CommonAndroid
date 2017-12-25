@@ -18,6 +18,7 @@ import java.io.InputStream;
 
 import okhttp3.MultipartBody;
 import okhttp3.ResponseBody;
+import rx.schedulers.Schedulers;
 
 /**
  * Created by Administrator on 2017/9/21.
@@ -26,9 +27,8 @@ public class MainPrestener extends BasePresenter<IMainView> {
 
     public void getUserInfo() {
         Api.getApi().search("15170193726", "fffffff")
-                .compose(callbackOnIOThread())
-                .compose(verifyOnMainThread())
-                .subscribe(new NetSubscriber<UserInfoModel>() {
+                .compose(callbackOnIOToMainThread())
+                .subscribe(new BaseNetSubscriber<UserInfoModel>() {
                     @Override
                     public void onNext(UserInfoModel userInfoModel) {
                         super.onNext(userInfoModel);
@@ -40,11 +40,8 @@ public class MainPrestener extends BasePresenter<IMainView> {
 
     public void getUserInfo1() {
         Api.getApi().search("15170193726", "fffffff")
-
-                .compose(callbackOnIOThread())
-                .compose(verifyOnMainThread())
-
-                .subscribe(new NetSubscriber<UserInfoModel>() {
+                .compose(callbackOnIOToMainThread())
+                .subscribe(new BaseNetSubscriber<UserInfoModel>() {
                     @Override
                     public void onNext(UserInfoModel userInfoModel) {
                         super.onNext(userInfoModel);
@@ -55,8 +52,7 @@ public class MainPrestener extends BasePresenter<IMainView> {
 
     public void longin() {
         Api.getApi().search("15170193726", "fffffff")
-                .compose(callbackOnIOThread())
-                .compose(verifyOnMainThread()).subscribe(new NetSubscriber<UserInfoModel>() {
+                .compose(callbackOnIOToMainThread()).subscribe(new BaseNetSubscriber<UserInfoModel>() {
             @Override
             public void onNext(UserInfoModel userInfoModel) {
                 super.onNext(userInfoModel);
@@ -83,8 +79,7 @@ public class MainPrestener extends BasePresenter<IMainView> {
         MultipartBody.Part body =
                 MultipartBody.Part.createFormData("image", file.getName(), fileRequestBody);
         Api.getApi().upload(fileRequestBody, body)
-                .compose(callbackOnIOThread())
-                .compose(verifyOnMainThread()).subscribe(new NetSubscriber<ResponseBody>() {
+                .compose(callbackOnIOToMainThread()).subscribe(new BaseNetSubscriber<ResponseBody>() {
             @Override
             public void onNext(ResponseBody responseBody) {
                 super.onNext(responseBody);
@@ -98,17 +93,15 @@ public class MainPrestener extends BasePresenter<IMainView> {
      */
     public void downLoadFile() {
         String all_url = "https://github.com/wzgiceman/RxjavaRetrofitDemo-master/archive/master.zip";//全路径
-
         Uri url = Uri.parse(all_url);
-
         //拆分两个
         String base_url = "https://github.com/";
         String jie_url = "wzgiceman/RxjavaRetrofitDemo-master/archive/master.zip";
         Api.getDownLoadApi(base_url, (total, progress) -> {
             getView().downProgress(total, progress * 100 / total);
         }).download(jie_url)
-                .compose(callbackOnIOThread())
-                .subscribe(new NetSubscriber<ResponseBody>() {
+                .subscribeOn(Schedulers.io())
+                .subscribe(new BaseNetSubscriber<ResponseBody>() {
                     @Override
                     public void onNext(ResponseBody responseBody) {
                         super.onNext(responseBody);

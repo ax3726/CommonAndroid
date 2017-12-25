@@ -28,12 +28,20 @@
                android:layout_centerInParent="true"
                android:visibility="@{stateModel.progress?View.VISIBLE:View.GONE}"
                app:loadingText="加载中..." />-->
-        <ProgressBar
-            android:layout_width="70dp"
-            android:layout_height="105dp"
+    <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:indeterminateDrawable="@drawable/page_loading_anim"
             android:visibility="@{stateModel.progress?View.VISIBLE:View.GONE}" />
+       <!-- <com.lm.rxtest.widget.CircleProgress
+            android:layout_width="wrap_content"
+            android:layout_centerInParent="true"
+            app:color1="@android:color/holo_red_light"
+            app:color2="@android:color/holo_green_light"
+            app:color3="@android:color/holo_blue_light"
+            android:visibility="@{stateModel.progress?View.VISIBLE:View.GONE}"
+            android:layout_height="wrap_content" />-->
 
         <LinearLayout
             android:layout_width="match_parent"

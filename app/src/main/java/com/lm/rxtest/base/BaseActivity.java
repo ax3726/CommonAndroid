@@ -21,11 +21,20 @@ import com.jakewharton.rxbinding.view.RxView;
 import com.lm.rxtest.R;
 import com.lm.rxtest.base.slide.SlideBackActivity;
 import com.lm.rxtest.databinding.WidgetLayoutEmptyBinding;
+import com.lm.rxtest.net.RetryWithDelayFunc1;
+import com.lm.rxtest.net.ex.ApiException;
+import com.lm.rxtest.net.ex.ResultException;
 import com.lm.rxtest.widget.TitleBarLayout;
 
+import java.net.ConnectException;
+import java.net.SocketTimeoutException;
 import java.util.concurrent.TimeUnit;
 
+import retrofit2.adapter.rxjava.HttpException;
 import rx.Observable;
+import rx.Subscriber;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 /**
  * Created by lm on 2017/11/22.
@@ -264,5 +273,54 @@ public abstract class BaseActivity<P extends BasePresenter, B extends ViewDataBi
         if (isPrestener()) {
             mPresenter.detachView();
         }
+    }
+
+    public abstract class BaseNetSubscriber<T> extends Subscriber<T> {
+        @Override
+        public void onStart() {
+            super.onStart();
+            if (aty != null) {
+                // getView().showProgress();
+            }
+        }
+
+        @Override
+        public void onCompleted() {
+            if (aty != null) {
+                hideWaitDialog();
+            }
+        }
+
+        @Override
+        public void onError(Throwable e) {
+            e.printStackTrace();
+            if (aty != null) {
+                return;
+            }
+            hideWaitDialog();
+            if (e instanceof HttpException) {
+                showToast("网络错误");
+            } else if (e instanceof ApiException) {
+                showToast("Aip异常");
+            } else if (e instanceof SocketTimeoutException) {
+                showToast("连接服务器超时");
+            } else if (e instanceof ConnectException) {
+                showToast("未能连接到服务器");
+            } else if (e instanceof ResultException) {
+                showToast(e.getMessage());
+            } else {
+                showToast("未知错误");
+            }
+        }
+
+        @Override
+        public void onNext(T t) {
+
+        }
+    }
+    public <T> Observable.Transformer<T, T> callbackOnIOToMainThread() {
+        return tObservable -> (Observable<T>) tObservable.subscribeOn(Schedulers.io())
+                .retryWhen(RetryWithDelayFunc1.create())
+                .filter(t -> aty!=null).observeOn(AndroidSchedulers.mainThread()).compose(bindToLifecycle());
     }
 }
