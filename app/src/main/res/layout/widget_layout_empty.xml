@@ -29,8 +29,8 @@
                android:visibility="@{stateModel.progress?View.VISIBLE:View.GONE}"
                app:loadingText="加载中..." />-->
     <ProgressBar
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:layout_centerInParent="true"
             android:indeterminateDrawable="@drawable/page_loading_anim"
             android:visibility="@{stateModel.progress?View.VISIBLE:View.GONE}" />

@@ -8,7 +8,6 @@ import com.lm.rxtest.R;
 import com.lm.rxtest.base.BaseActivity;
 import com.lm.rxtest.base.EmptyState;
 import com.lm.rxtest.base.StateModel;
-import com.lm.rxtest.common.Api;
 import com.lm.rxtest.databinding.ActivityMainBinding;
 import com.lm.rxtest.model.UserInfoModel;
 import com.lm.rxtest.prestener.MainPrestener;
@@ -55,15 +54,7 @@ public class MainActivity extends BaseActivity<MainPrestener, ActivityMainBindin
 
     @Override
     protected void initData() {
-        Api.getApi().search("15170193726", "fffffff")
-                .compose(callbackOnIOToMainThread())
-                .subscribe(new BaseNetSubscriber<UserInfoModel>() {
-                    @Override
-                    public void onNext(UserInfoModel userInfoModel) {
-                        super.onNext(userInfoModel);
-                       getUserInfo(userInfoModel);
-                    }
-                });
+
         mBinding.btn1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -154,6 +145,7 @@ public class MainActivity extends BaseActivity<MainPrestener, ActivityMainBindin
     public void getUserInfo1(UserInfoModel userInfoModel) {
         /*long l = System.currentTimeMillis() - cur;
         Log.e("msg", "inflate之后加载数据耗时:" + l);*/
+        showToast("获取到了");
     }
 
     @Override

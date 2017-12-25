@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <animation-list xmlns:android="http://schemas.android.com/apk/res/android"
     android:oneshot="false">
-  <item android:drawable="@drawable/loading1" android:duration="78" />
+<!--  <item android:drawable="@drawable/loading1" android:duration="78" />
     <item android:drawable="@drawable/loading2" android:duration="78" />
     <item android:drawable="@drawable/loading3" android:duration="78" />
     <item android:drawable="@drawable/loading4" android:duration="78" />
@@ -30,8 +30,8 @@
     <item android:drawable="@drawable/loading27" android:duration="78" />
     <item android:drawable="@drawable/loading28" android:duration="78" />
     <item android:drawable="@drawable/loading29" android:duration="78" />
-    <item android:drawable="@drawable/loading30" android:duration="78" />
-   <!-- <item android:drawable="@drawable/uploading1" android:duration="60" />
+    <item android:drawable="@drawable/loading30" android:duration="78" />-->
+  <item android:drawable="@drawable/uploading1" android:duration="60" />
     <item android:drawable="@drawable/uploading2" android:duration="60" />
     <item android:drawable="@drawable/uploading3" android:duration="60" />
     <item android:drawable="@drawable/uploading4" android:duration="60" />
@@ -42,7 +42,7 @@
     <item android:drawable="@drawable/uploading9" android:duration="60" />
     <item android:drawable="@drawable/uploading10" android:duration="60" />
     <item android:drawable="@drawable/uploading11" android:duration="60" />
-    <item android:drawable="@drawable/uploading12" android:duration="60" />-->
+    <item android:drawable="@drawable/uploading12" android:duration="60" />
    <!-- <item android:drawable="@drawable/block_loading1" android:duration="20" />
     <item android:drawable="@drawable/block_loading2" android:duration="20" />
     <item android:drawable="@drawable/block_loading3" android:duration="20" />
