@@ -11,7 +11,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            tools:context="com.lm.rxtest.u_content">
+            tools:context="com.lm.base.u_content">
 
             <Button
                 android:id="@+id/btn1"
@@ -24,6 +24,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:text="Materical效果" />
+            <Button
+                android:id="@+id/btn3"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="获取数据" />
 
         </LinearLayout>
     </com.lm.rxtest.widget.MyScrollView>

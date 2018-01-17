@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.lm.rxtest">
+    package="com.lm.base">
 
     <!-- 用于访问网络，网络定位需要上网 -->
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
-        android:name=".common.MyApplication"
+        android:name="com.lm.base.common.MyApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -20,7 +20,7 @@
             android:name="design_height"
             android:value="1920" />
         <activity
-            android:name=".ui.MainActivity"
+            android:name="com.lm.base.ui.MainActivity"
             android:windowSoftInputMode="adjustResize|stateHidden">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -28,9 +28,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.TestActivity" />
-        <activity android:name=".ui.MaterialActivity" />
-        <activity android:name=".ui.MaterListActivity"></activity>
+        <activity android:name="com.lm.base.ui.TestActivity" />
+        <activity android:name="com.lm.base.ui.MaterialActivity" />
+        <activity android:name="com.lm.base.ui.MaterListActivity"></activity>
 
     </application>
 

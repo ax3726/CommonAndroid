@@ -8,7 +8,7 @@
 
         <variable
             name="stateModel"
-            type="com.lm.rxtest.base.StateModel" />
+            type="com.lm.base.base.StateModel" />
 
     </data>
 
