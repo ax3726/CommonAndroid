@@ -15,7 +15,8 @@ import okhttp3.Response;
 import retrofit2.CallAdapter;
 import retrofit2.Converter;
 import retrofit2.Retrofit;
-import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
+
 
 /**
  * Created by Administrator on 2017/9/21.
@@ -24,7 +25,7 @@ import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 public class Api {
 
     private static Converter.Factory gsonConverterFactory = GsonConverterFactory.create();
-    private static CallAdapter.Factory rxJavaCallAdapterFactory = RxJavaCallAdapterFactory.create();
+    private static CallAdapter.Factory rxJavaCallAdapterFactory = RxJava2CallAdapterFactory.create();
     private static ApiService apiService;
 
 
