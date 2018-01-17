@@ -3,6 +3,7 @@ package com.lm.base.common;
 import com.lm.base.net.DownloadResponseBody;
 import com.lm.base.net.DownloadResponseBody.DownLoadListener;
 import com.lm.base.net.GsonConverterFactory;
+import com.lm.base.net.LoggerInterceptor;
 
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
@@ -44,7 +45,7 @@ public class Api {
 
     public static OkHttpClient getOkHttpClient(DownLoadListener... downLoadListener) {
         OkHttpClient.Builder builder = new OkHttpClient.Builder()
-                // .addInterceptor(new LoggerInterceptor("wdw", true))
+                 .addInterceptor(new LoggerInterceptor("lm", true))
                 .connectTimeout(10000L, TimeUnit.MILLISECONDS)
                 .readTimeout(10000L, TimeUnit.MILLISECONDS)
                 .addInterceptor(chain -> {//添加公共信息
