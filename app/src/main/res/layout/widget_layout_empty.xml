@@ -68,21 +68,21 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="10dp"
                 android:text="@{stateModel.currentStateLabel}"
-                android:textSize="16sp" />
+                android:textSize="14dp" />
 
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"
                 android:layout_below="@+id/tv_msg"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="20dp"
                 android:background="@drawable/shape_cancel_ok"
                 android:onClick="@{stateModel.onStateClick}"
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp"
                 android:text="点击重新加载"
-                android:textColor="@color/colorWhite"
-                android:textSize="15sp" />
+                android:textColor="@color/colore969292"
+                android:textSize="15dp" />
 
         </LinearLayout>
     </RelativeLayout>
