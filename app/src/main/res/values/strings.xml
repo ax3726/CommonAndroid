@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">RxTest</string>
+    <string name="app_name">BaseAndroid</string>
     <string name="aa">aa</string>
     <string name="no_data">暂无数据！</string>
     <string name="please_check_net_state">请检查网络状态</string>

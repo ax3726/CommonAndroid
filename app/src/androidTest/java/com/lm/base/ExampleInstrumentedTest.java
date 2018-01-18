@@ -1,4 +1,4 @@
-package com.lm.rxtest;
+package com.lm.base;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
