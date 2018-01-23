@@ -4,11 +4,13 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -61,12 +63,17 @@ public abstract class BaseActivity<P extends BasePresenter, B extends ViewDataBi
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-       if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {//添加沉浸式状态栏
-            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-            //需要设置这个 flag 才能调用 setStatusBarColor 来设置状态栏颜色
-            //getWindow().addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-            //设置状态栏颜色
-            //getWindow().setStatusBarColor(color);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {//添加沉浸式状态栏
+            Window window = getWindow();
+            window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS
+                        | WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
+                window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                        | View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
+                window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+                window.setStatusBarColor(Color.TRANSPARENT);
+            }
         }
 
         if (isPrestener()) {
@@ -280,15 +287,18 @@ public abstract class BaseActivity<P extends BasePresenter, B extends ViewDataBi
     }
 
     public abstract class BaseNetSubscriber<T> implements Subscriber<T> {
-       private Subscription subscription;
+        private Subscription subscription;
+
         public BaseNetSubscriber() {
 
         }
+
         public BaseNetSubscriber(boolean bl) {
-            if (aty!=null&&bl) {
-              showWaitDialog();
+            if (aty != null && bl) {
+                showWaitDialog();
             }
         }
+
         @Override
         public void onSubscribe(Subscription s) {
             subscription = s;
@@ -334,15 +344,13 @@ public abstract class BaseActivity<P extends BasePresenter, B extends ViewDataBi
     }
 
 
-
     public <T> FlowableTransformer<T, T> callbackOnIOToMainThread() {
         return observable -> observable.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .retryWhen(RetryWithDelayFunction.create())
-                .filter(t -> aty!=null)
+                .filter(t -> aty != null)
                 .compose(bindToLifecycle());
     }
-
 
 
     @Override
