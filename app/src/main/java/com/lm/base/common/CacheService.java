@@ -2,7 +2,7 @@ package com.lm.base.common;
 
 import com.lm.base.model.UserInfoModel;
 
-import ml.gsy.com.library.utils.CacheUtils;
+import com.lm.base.library.utils.CacheUtils;
 
 /**
  * Created by Administrator on 2017/11/22 0022.

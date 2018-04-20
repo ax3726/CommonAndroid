@@ -3,6 +3,8 @@ package com.lm.base.common;
 import com.lm.base.model.BaseBean;
 import com.lm.base.model.UserInfoModel;
 
+import java.util.HashMap;
+
 import io.reactivex.Flowable;
 import okhttp3.MultipartBody;
 import okhttp3.ResponseBody;
@@ -23,7 +25,9 @@ public interface ApiService {
     @POST("selectUserInfo.shtml")
     //获取用户信息
     Flowable<UserInfoModel> search(@Query("phone") String query, @Query("token") String token);
-
+    @POST("selectUserInfo.shtml")
+        //获取用户信息
+    Flowable<HashMap> search1();
     //下载文件
     @Streaming
     @GET

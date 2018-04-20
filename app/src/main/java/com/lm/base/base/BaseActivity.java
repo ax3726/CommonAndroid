@@ -37,7 +37,7 @@ import java.net.SocketTimeoutException;
 import io.reactivex.FlowableTransformer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
-import ml.gsy.com.library.common.LoadingDialog;
+import com.lm.base.library.common.LoadingDialog;
 import retrofit2.HttpException;
 
 
@@ -46,7 +46,7 @@ import retrofit2.HttpException;
  * Description:
  */
 
-public abstract class BaseActivity<P extends BasePresenter, B extends ViewDataBinding> extends SlideBackActivity implements BaseView {
+public abstract class BaseActivity<P extends BasePresenter, B extends ViewDataBinding> extends SlideBackActivity implements BaseView,BaseHttpListener {
 
     protected P mPresenter;
     protected B mBinding;
@@ -190,23 +190,28 @@ public abstract class BaseActivity<P extends BasePresenter, B extends ViewDataBi
 
     @Override
     public void showToast(final String s) {
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                Toast.makeText(aty, s, Toast.LENGTH_SHORT).show();
-            }
-        });
+        if (aty!=null) {
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    Toast.makeText(aty, s, Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
+
+
     }
 
     @Override
     public void showToast(final int id) {
-
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                Toast.makeText(aty, getResources().getString(id), Toast.LENGTH_SHORT).show();
-            }
-        });
+        if (aty!=null) {
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    Toast.makeText(aty, getResources().getString(id), Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
 
     }
 
@@ -220,13 +225,13 @@ public abstract class BaseActivity<P extends BasePresenter, B extends ViewDataBi
      * @return
      */
 
-    public LoadingDialog showWaitDialog(String message) {
-        return showWaitDialog(message, true, null);
+    public void showWaitDialog(String message) {
+        showWaitDialog(message, true, null);
     }
 
     @Override
-    public LoadingDialog showWaitDialog(boolean isCancel, DialogInterface.OnCancelListener cancelListener) {
-        return showWaitDialog("", isCancel, cancelListener);
+    public void showWaitDialog(boolean isCancel, DialogInterface.OnCancelListener cancelListener) {
+         showWaitDialog("", isCancel, cancelListener);
     }
 
 
@@ -236,8 +241,8 @@ public abstract class BaseActivity<P extends BasePresenter, B extends ViewDataBi
      * @return
      */
 
-    public LoadingDialog showWaitDialog() {
-        return showWaitDialog("", true, null);
+    public void showWaitDialog() {
+        showWaitDialog("", true, null);
     }
 
     /**
@@ -249,11 +254,13 @@ public abstract class BaseActivity<P extends BasePresenter, B extends ViewDataBi
      * @return
      */
 
-    public LoadingDialog showWaitDialog(String message, boolean isCancel, DialogInterface.OnCancelListener cancelListener) {
-        if (mLoadingDialog == null) {
-            mLoadingDialog = new LoadingDialog(this, message);
+    public void showWaitDialog(String message, boolean isCancel, DialogInterface.OnCancelListener cancelListener) {
+        if (aty==null) {
+            return;
         }
-
+        if (mLoadingDialog == null) {
+            mLoadingDialog = new LoadingDialog(aty, message);
+        }
         mLoadingDialog.setCancelable(isCancel);
         if (isCancel == true && cancelListener != null) {
             mLoadingDialog.setOnCancelListener(cancelListener);
@@ -263,7 +270,7 @@ public abstract class BaseActivity<P extends BasePresenter, B extends ViewDataBi
             mLoadingDialog.show();
         }
 
-        return mLoadingDialog;
+
     }
     /***************************************************************************
      * 弹出窗方法
@@ -272,6 +279,9 @@ public abstract class BaseActivity<P extends BasePresenter, B extends ViewDataBi
      * 隐藏
      */
     public void hideWaitDialog() {
+        if (aty==null) {
+            return;
+        }
         if (mLoadingDialog != null && mLoadingDialog.isShowing()) {
             mLoadingDialog.dismiss();
             mLoadingDialog = null;
@@ -285,64 +295,6 @@ public abstract class BaseActivity<P extends BasePresenter, B extends ViewDataBi
             mPresenter.detachView();
         }
     }
-
-    public abstract class BaseNetSubscriber<T> implements Subscriber<T> {
-        private Subscription subscription;
-
-        public BaseNetSubscriber() {
-
-        }
-
-        public BaseNetSubscriber(boolean bl) {
-            if (aty != null && bl) {
-                showWaitDialog();
-            }
-        }
-
-        @Override
-        public void onSubscribe(Subscription s) {
-            subscription = s;
-            s.request(1); //请求一个数据
-        }
-
-        @Override
-        public void onComplete() {
-            subscription.cancel(); //取消订阅
-            if (aty != null) {
-                hideWaitDialog();
-            }
-        }
-
-
-        @Override
-        public void onError(Throwable e) {
-            e.printStackTrace();
-            if (aty == null) {
-                return;
-            }
-            hideWaitDialog();
-            if (e instanceof HttpException) {
-                showToast("网络错误");
-            } else if (e instanceof ApiException) {
-                showToast("Aip异常");
-            } else if (e instanceof SocketTimeoutException) {
-                showToast("连接服务器超时");
-            } else if (e instanceof ConnectException) {
-                showToast("未能连接到服务器");
-            } else if (e instanceof ResultException) {
-                showToast(e.getMessage());
-            } else {
-                showToast("未知错误");
-            }
-        }
-
-        @Override
-        public void onNext(T t) {
-            //处理完后，再请求一个数据
-            subscription.request(1);
-        }
-    }
-
 
     public <T> FlowableTransformer<T, T> callbackOnIOToMainThread() {
         return observable -> observable.subscribeOn(Schedulers.io())

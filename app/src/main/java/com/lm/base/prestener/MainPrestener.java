@@ -3,6 +3,7 @@ package com.lm.base.prestener;
 import android.net.Uri;
 import android.util.Log;
 
+import com.lm.base.base.BaseNetListener;
 import com.lm.base.base.BasePresenter;
 import com.lm.base.common.Api;
 import com.lm.base.common.MyApplication;
@@ -16,6 +17,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.HashMap;
 
 import okhttp3.MultipartBody;
 import okhttp3.ResponseBody;
@@ -27,39 +29,53 @@ public class MainPrestener extends BasePresenter<IMainView> {
 
     public void getUserInfo() {
         Api.getApi().search("15170193726", "fffffff")
+
                 .compose(callbackOnIOToMainThread())
-                .subscribe(new BaseNetSubscriber<UserInfoModel>() {
+                .subscribe(new BaseNetListener<UserInfoModel>(this) {
                     @Override
-                    public void onNext(UserInfoModel userInfoModel) {
-                        super.onNext(userInfoModel);
+                    public void onSuccess(UserInfoModel userInfoModel) {
                         getView().getUserInfo(userInfoModel);
                     }
 
+                    @Override
+                    public void onFail(String errMsg) {
+
+                    }
                 });
+
     }
 
     public void getUserInfo1() {
         Api.getApi().search("15170193726", "fffffff")
                 .compose(callbackOnIOToMainThread())
-                .subscribe(new BaseNetSubscriber<UserInfoModel>() {
+                .subscribe(new BaseNetListener<UserInfoModel>(this) {
                     @Override
-                    public void onNext(UserInfoModel userInfoModel) {
-                        super.onNext(userInfoModel);
+                    public void onSuccess(UserInfoModel userInfoModel) {
                         getView().getUserInfo1(userInfoModel);
                     }
+
+                    @Override
+                    public void onFail(String errMsg) {
+
+                    }
                 });
+
     }
 
     public void longin() {
         Api.getApi().search("15170193726", "fffffff")
-                .compose(callbackOnIOToMainThread()).subscribe(new BaseNetSubscriber<UserInfoModel>() {
+                .compose(callbackOnIOToMainThread()).subscribe(new BaseNetListener<UserInfoModel>(this) {
             @Override
-            public void onNext(UserInfoModel userInfoModel) {
-                super.onNext(userInfoModel);
+            public void onSuccess(UserInfoModel userInfoModel) {
                 getView().login();//
+            }
+
+            @Override
+            public void onFail(String errMsg) {
 
             }
         });
+
     }
 
     /**
@@ -82,10 +98,14 @@ public class MainPrestener extends BasePresenter<IMainView> {
                 MultipartBody.Part.createFormData("file", flie.getName(), fileRequestBody);
 
         Api.getApi().getLoginRegisterImage(name, gender, body)
-                .compose(callbackOnIOToMainThread()).subscribe(new BaseNetSubscriber<BaseBean>() {
+                .compose(callbackOnIOToMainThread()).subscribe(new BaseNetListener<BaseBean>(this) {
             @Override
-            public void onNext(BaseBean headListModel) {
-                super.onNext(headListModel);
+            public void onSuccess(BaseBean baseBean) {
+
+            }
+
+            @Override
+            public void onFail(String errMsg) {
 
             }
         });
@@ -106,10 +126,9 @@ public class MainPrestener extends BasePresenter<IMainView> {
             getView().downProgress(total, progress * 100 / total);
         }).download(jie_url)
                 .compose(callbackOnIOToMainThread())
-                .subscribe(new BaseNetSubscriber<ResponseBody>() {
+                .subscribe(new BaseNetListener<ResponseBody>(this) {
                     @Override
-                    public void onNext(ResponseBody responseBody) {
-                        super.onNext(responseBody);
+                    public void onSuccess(ResponseBody responseBody) {
                         InputStream is = null;
                         byte[] buf = new byte[2048];
                         int len;
@@ -139,8 +158,17 @@ public class MainPrestener extends BasePresenter<IMainView> {
                                 Log.e("saveFile", e.getMessage());
                             }
                         }
+
+                    }
+
+                    @Override
+                    public void onFail(String errMsg) {
+
                     }
                 });
+
+
+
     }
 
 

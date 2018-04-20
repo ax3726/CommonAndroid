@@ -28,7 +28,7 @@ import retrofit2.HttpException;
  * Description:
  */
 
-public class BaseFragmentPresenter<V extends BaseFragmentView> implements IBaseFragmentPresenter<V>, LifecycleProvider<FragmentEvent> {
+public class BaseFragmentPresenter<V extends BaseFragmentView> implements IBaseFragmentPresenter<V>, LifecycleProvider<FragmentEvent>,BaseHttpListener {
 
 
     protected V mView;
@@ -90,58 +90,29 @@ public class BaseFragmentPresenter<V extends BaseFragmentView> implements IBaseF
         return getView().bindToLifecycle();
     }
 
-    public abstract class BaseNetSubscriber<T> implements Subscriber<T> {
-        private Subscription subscription;
-
-        public BaseNetSubscriber() {
-        }
-        public BaseNetSubscriber(boolean bl) {
-            if (isViewAttach() && bl) {
-                getView().showWaitDialog();
-            }
-        }
-        @Override
-        public void onSubscribe(Subscription s) {
-            subscription = s;
-            s.request(1); //请求一个数据
+    @Override
+    public void showWaitDialog() {
+        if (isViewAttach()) {
+            getView().showWaitDialog();
         }
 
-        @Override
-        public void onComplete() {
-            subscription.cancel(); //取消订阅
-            if (isViewAttach()) {
-                getView().hideWaitDialog();
-            }
-        }
+    }
 
-        @Override
-        public void onError(Throwable e) {
-            e.printStackTrace();
-            if (!isViewAttach()) {
-                return;
-            }
-            getView().hideWaitDialog();
-            if (e instanceof HttpException) {
-                getView().showToast("网络错误");
-            } else if (e instanceof ApiException) {
-                getView().showToast("Aip异常");
-            } else if (e instanceof SocketTimeoutException) {
-                getView().showToast("连接服务器超时");
-            } else if (e instanceof ConnectException) {
-                getView().showToast("未能连接到服务器");
-            } else if (e instanceof ResultException) {
-                getView().showToast(e.getMessage());
-            } else {
-                getView().showToast("未知错误");
-            }
-        }
-
-        @Override
-        public void onNext(T t) {
-            //处理完后，再请求一个数据
-            subscription.request(1);
+    @Override
+    public void hideWaitDialog() {
+        if (isViewAttach()) {
+            getView().showWaitDialog();
         }
     }
+
+    @Override
+    public void showToast(String str) {
+        if (!isViewAttach()) {
+            return;
+        }
+        getView().showToast(str);
+    }
+
 
 
 }

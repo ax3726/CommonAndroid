@@ -6,7 +6,7 @@ import com.trello.rxlifecycle2.LifecycleTransformer;
 import com.trello.rxlifecycle2.android.FragmentEvent;
 
 import io.reactivex.Observable;
-import ml.gsy.com.library.common.LoadingDialog;
+import com.lm.base.library.common.LoadingDialog;
 
 
 /**
@@ -38,7 +38,7 @@ public interface BaseFragmentView {
      *
      * @return
      */
-    LoadingDialog showWaitDialog();
+    void showWaitDialog();
 
 
     /**
@@ -47,7 +47,7 @@ public interface BaseFragmentView {
      * @param message 消息
      * @return
      */
-    LoadingDialog showWaitDialog(String message);
+    void showWaitDialog(String message);
 
     /**
      * 显示
@@ -56,7 +56,7 @@ public interface BaseFragmentView {
      * @param cancelListener 取消监听
      * @return
      */
-    LoadingDialog showWaitDialog(boolean isCancel, DialogInterface.OnCancelListener cancelListener);
+    void showWaitDialog(boolean isCancel, DialogInterface.OnCancelListener cancelListener);
 
 
     /**
@@ -65,6 +65,6 @@ public interface BaseFragmentView {
      * @param cancelListener 取消监听
      * @return
      */
-    LoadingDialog showWaitDialog(String message, boolean isCancel, DialogInterface.OnCancelListener cancelListener);
+    void showWaitDialog(String message, boolean isCancel, DialogInterface.OnCancelListener cancelListener);
 
 }
