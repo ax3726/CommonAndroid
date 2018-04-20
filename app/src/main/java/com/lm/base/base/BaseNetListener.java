@@ -13,6 +13,7 @@ import retrofit2.HttpException;
 
 /**
  * Created by Administrator on 2018/4/20.
+ * 接口回调处理类
  */
 
 public abstract class BaseNetListener<T> implements Subscriber<T> {
