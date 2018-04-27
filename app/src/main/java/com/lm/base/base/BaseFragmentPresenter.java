@@ -101,7 +101,7 @@ public class BaseFragmentPresenter<V extends BaseFragmentView> implements IBaseF
     @Override
     public void hideWaitDialog() {
         if (isViewAttach()) {
-            getView().showWaitDialog();
+            getView().hideWaitDialog();
         }
     }
 

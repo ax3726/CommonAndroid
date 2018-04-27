@@ -94,7 +94,7 @@ public class BasePresenter<V extends BaseView> implements IBasePresenter<V> , Li
     @Override
     public void hideWaitDialog() {
         if (isViewAttach()) {
-            getView().showWaitDialog();
+            getView().hideWaitDialog();
         }
     }
 

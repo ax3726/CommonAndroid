@@ -60,6 +60,7 @@ public abstract class BaseNetListener<T> implements Subscriber<T> {
             err_msg="未知错误";
         }
         if ( this.baseHttpListener!=null) {
+            this.baseHttpListener.hideWaitDialog();
             this.baseHttpListener.showToast(err_msg);
         }
         onFail(err_msg);
