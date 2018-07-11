@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="DialogBaseStyle"  parent="@android:style/Theme.Holo.Light.Dialog">
+        <item name="android:windowFrame">@null</item><!-- 设置无边框 -->
+        <item name="android:windowNoTitle">true</item><!-- 设置无标题 -->
+        <item name="android:windowIsFloating">true</item><!-- 设置浮动窗口 -->
+        <item name="android:backgroundDimEnabled">true</item><!-- 设置屏幕变暗 -->
+        <item name="android:windowBackground">@android:color/transparent</item>
+    </style>
+    <style name="DialogBaseStyle_Loading"  parent="DialogBaseStyle">
+        <item name="android:backgroundDimEnabled">false</item><!-- 设置屏幕变暗 -->
+    </style>
+</resources>

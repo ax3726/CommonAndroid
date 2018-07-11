@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="licensemanager-v1.1">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../liveness_lib/libs/licensemanager-v1.1.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

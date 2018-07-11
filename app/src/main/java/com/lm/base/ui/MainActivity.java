@@ -1,22 +1,31 @@
 package com.lm.base.ui;
 
+import android.content.ComponentName;
+import android.content.Intent;
+import android.os.Environment;
 import android.os.Handler;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import com.lm.base.R;
-import com.lm.base.base.BaseActivity;
-import com.lm.base.base.EmptyState;
-import com.lm.base.base.StateModel;
+
+import com.lm.base.common.Api;
 import com.lm.base.databinding.ActivityMainBinding;
+
 import com.lm.base.model.UserInfoModel;
 import com.lm.base.prestener.MainPrestener;
 import com.lm.base.view.IMainView;
+import com.lm.lib_common.base.BaseActivity;
+import com.lm.lib_common.base.EmptyState;
+import com.lm.lib_common.base.StateModel;
+import com.lm.lib_common.utils.AndroidBug5497Workaround;
 
+
+import java.lang.reflect.Proxy;
 import java.util.ArrayList;
 import java.util.List;
 
-import ml.gsy.com.library.views.AndroidBug5497Workaround;
 import rx.Observable;
 
 public class MainActivity extends BaseActivity<MainPrestener, ActivityMainBinding> implements IMainView {
@@ -35,6 +44,7 @@ public class MainActivity extends BaseActivity<MainPrestener, ActivityMainBindin
     protected void onResume() {
         super.onResume();
         // Log.e("msg", "UI渲染耗时:" + l);
+
     }
 
     @Override
@@ -67,20 +77,24 @@ public class MainActivity extends BaseActivity<MainPrestener, ActivityMainBindin
                 startActivity(TestActivity.class);
             }
         });
+
+
         AndroidBug5497Workaround.assistActivity(findViewById(android.R.id.content));// 解决输入法弹出时布局被顶上去的BUG
 
-        mStateModel.setEmptyState(EmptyState.PROGRESS);//设置页面状态为加载中
+        // mStateModel.setEmptyState(EmptyState.PROGRESS);//设置页面状态为加载中
         //mStateModel.setEmptyState(EmptyState.NORMAL);//设置页面状态为正常
         //mStateModel.setEmptyState(EmptyState.EMPTY);//设置页面状态为暂无数据
         //EmptyState类里面可自定义添加状态
 
-        new Handler().postDelayed(new Runnable() {
+      /*  new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
                 mStateModel.setEmptyState(EmptyState.EMPTY);
             }
-        }, 3000);
+        }, 3000);*/
         mPresenter.getUserInfo1();
+
+
         mStateModel.setIOnClickListener(new StateModel.IOnClickListener() {
             @Override
             public void click(View view) {
@@ -95,12 +109,12 @@ public class MainActivity extends BaseActivity<MainPrestener, ActivityMainBindin
             }
         });
 
-    mBinding.btn3.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            mPresenter.getUserInfo();
-        }
-    });
+        mBinding.btn3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mPresenter.getUserInfo();
+            }
+        });
         List<String> list = new ArrayList<>();
 
         for (int i = 0; i < 20; i++) {
@@ -166,5 +180,41 @@ public class MainActivity extends BaseActivity<MainPrestener, ActivityMainBindin
         //runOnUiThread(() -> mBinding.txt.setText("总大小:" + total + " \t\t\t\t进度:" + precent));
     }
 
+
+    public void installChajian(View view) {
+        String folder = Environment.getExternalStorageDirectory().getAbsolutePath();
+       /* PluginInfo install = RePlugin.install(folder + "/test.apk");
+        if (install != null) {
+            Intent intent = new Intent();
+            intent.setComponent(new ComponentName("test1", "com.lm.replugin.MainActivity"));
+            RePlugin.startActivity(MainActivity.this, intent);
+        } else {
+            Toast.makeText(this, "安装失败！", Toast.LENGTH_SHORT).show();
+        }*/
+    }
+
+    public void startChajian(View view) {
+    /*    if (RePlugin.isPluginInstalled("test1")) {
+            RePlugin.startActivity(MainActivity.this, RePlugin.createIntent("com.lm.replugin", "com.lm.replugin.MainActivity"));
+
+        } else {
+            Toast.makeText(this, "开始安装插件", Toast.LENGTH_SHORT).show();
+            installChajian(view);
+        }
+*/
+
+    }
+
+    public void startChajian2(View view) {
+  /*      Intent intent = new Intent();
+        intent.setComponent(new ComponentName("test2", "com.lm.replugin2.MainActivity"));
+        RePlugin.startActivity(MainActivity.this, intent);
+*/
+    }
+
+    public void testDownLoad(View view) {
+        startActivity(DownLoadActivity.class);
+
+    }
 
 }

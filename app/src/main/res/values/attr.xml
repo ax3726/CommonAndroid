@@ -15,7 +15,7 @@
     </style>
 
     <style name="DialogBaseStyle_Loading" parent="DialogBaseStyle">
-        <item name="android:backgroundDimEnabled">true</item><!-- 设置屏幕变暗 -->
+        <item name="android:backgroundDimEnabled">false</item><!-- 设置屏幕变暗 -->
     </style>
 
 </resources>

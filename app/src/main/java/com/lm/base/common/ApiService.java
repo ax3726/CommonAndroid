@@ -1,6 +1,7 @@
 package com.lm.base.common;
 
 import com.lm.base.model.BaseBean;
+import com.lm.base.model.TestModel;
 import com.lm.base.model.UserInfoModel;
 
 import java.util.HashMap;
@@ -8,6 +9,7 @@ import java.util.HashMap;
 import io.reactivex.Flowable;
 import okhttp3.MultipartBody;
 import okhttp3.ResponseBody;
+import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
@@ -24,14 +26,15 @@ import retrofit2.http.Url;
 public interface ApiService {
     @POST("selectUserInfo.shtml")
     //获取用户信息
-    Flowable<UserInfoModel> search(@Query("phone") String query, @Query("token") String token);
+    Flowable<UserInfoModel> search(@Query("phone") String query, @Query("token") String token, @Body TestModel testModel);
     @POST("selectUserInfo.shtml")
+
         //获取用户信息
-    Flowable<HashMap> search1();
+    Flowable<UserInfoModel> search1();
     //下载文件
     @Streaming
     @GET
-    Flowable<ResponseBody> download(@Url String url);
+    Flowable<ResponseBody> download(@ Url String url);
 
     // 上传图片
     @Multipart

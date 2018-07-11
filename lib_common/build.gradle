@@ -1,0 +1,57 @@
+apply plugin: 'com.android.library'
+apply plugin:'me.tatarka.retrolambda'
+android {
+
+    compileSdkVersion build_versions.compile_sdk
+    buildToolsVersion build_versions.build_tools
+    defaultConfig {
+        minSdkVersion build_versions.min_sdk
+        targetSdkVersion build_versions.target_sdk
+        versionCode 1
+        versionName "1.0"
+
+
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+//下面这两句在创建项目时不会自动生成，必需加上，是为了引用Java8的。
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    packagingOptions {
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/NOTICE'
+        exclude 'META-INF/rxjava.properties'
+    }
+    dataBinding {
+        enabled = true
+    }
+
+
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile Dependencies.gson
+    compile Dependencies.v7
+    compile Dependencies.recyclerview
+    compile Dependencies.design
+    compile Dependencies.glide
+    compile Dependencies.autolayout
+    compile Dependencies.okhttp3
+    compile Dependencies.retrofit
+    compile Dependencies.converter_gson
+    compile Dependencies.adapter_rxjava
+    compile Dependencies.rxbinding
+    compile Dependencies.rxlifecycle
+    compile Dependencies.rxlifecycle_android
+    compile Dependencies.rxlifecycle_components
+    compile Dependencies.rxandroid
+    compile Dependencies.rxjava
+    compile Dependencies.arouter_api
+}

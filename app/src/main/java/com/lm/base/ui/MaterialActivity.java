@@ -3,9 +3,10 @@ package com.lm.base.ui;
 import android.view.View;
 
 import com.lm.base.R;
-import com.lm.base.base.BaseActivity;
-import com.lm.base.base.BasePresenter;
+
 import com.lm.base.databinding.ActivityMaterialBinding;
+import com.lm.lib_common.base.BaseActivity;
+import com.lm.lib_common.base.BasePresenter;
 
 public class MaterialActivity extends BaseActivity<BasePresenter, ActivityMaterialBinding> {
     @Override

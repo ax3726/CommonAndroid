@@ -1,9 +1,11 @@
 package com.lm.base.common;
 
-import com.lm.base.net.DownloadResponseBody;
-import com.lm.base.net.DownloadResponseBody.DownLoadListener;
-import com.lm.base.net.GsonConverterFactory;
-import com.lm.base.net.LoggerInterceptor;
+
+
+import com.lm.lib_common.net.DownloadResponseBody;
+import com.lm.lib_common.net.DownloadResponseBody.DownLoadListener;
+import com.lm.lib_common.net.GsonConverterFactory;
+import com.lm.lib_common.net.LoggerInterceptor;
 
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;

@@ -1,7 +1,8 @@
 package com.lm.base.view;
 
-import com.lm.base.base.BaseView;
+
 import com.lm.base.model.UserInfoModel;
+import com.lm.lib_common.base.BaseView;
 
 /**
  * Created by Administrator on 2017/9/21.

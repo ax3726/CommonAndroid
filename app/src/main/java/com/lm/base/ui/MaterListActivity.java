@@ -7,16 +7,17 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.lm.base.R;
-import com.lm.base.base.BaseActivity;
-import com.lm.base.base.BasePresenter;
+
 import com.lm.base.databinding.ActivityMaterListBinding;
+import com.lm.lib_common.adapters.recyclerview.CommonAdapter;
+import com.lm.lib_common.adapters.recyclerview.MultiItemTypeAdapter;
+import com.lm.lib_common.adapters.recyclerview.base.ViewHolder;
+import com.lm.lib_common.base.BaseActivity;
+import com.lm.lib_common.base.BasePresenter;
+
 
 import java.util.ArrayList;
 import java.util.List;
-
-import ml.gsy.com.library.adapters.recyclerview.CommonAdapter;
-import ml.gsy.com.library.adapters.recyclerview.MultiItemTypeAdapter;
-import ml.gsy.com.library.adapters.recyclerview.base.ViewHolder;
 
 public class MaterListActivity extends BaseActivity<BasePresenter, ActivityMaterListBinding> {
 

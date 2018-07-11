@@ -1,0 +1,47 @@
+def build_versions = [:]
+build_versions.min_sdk = 16
+build_versions.target_sdk = 23
+build_versions.compile_sdk = 25
+build_versions.build_tools = "25.0.2"
+ext.build_versions = build_versions
+
+ext {
+    supportVersion = '25.3.1'
+    gsonVersion = '2.3.1'
+    glideVersion = '3.6.1'
+    autolayoutVersion = '1.4.3'
+    eventbusVersion = '3.0.0'
+    okhttp3Version = '3.8.0'
+    retrofitVersion = '2.3.0'
+    rxbindingVersion = '1.0.1'
+    rxlifecycleVersion = '2.1.0'
+    rxandroidVersion = '2.0.1'
+    rxjavaVersion = '2.1.3'
+    arouter_apiVersion = '1.3.1'
+    arouter_compilerVersion = '1.1.4'
+
+    Dependencies = [
+            gson                  : "com.google.code.gson:gson:$gsonVersion",
+            v7                    : "com.android.support:appcompat-v7:$supportVersion",
+            recyclerview          : "com.android.support:recyclerview-v7:$supportVersion",
+            design          : "com.android.support:design:$supportVersion",
+            glide                 : "com.github.bumptech.glide:glide:$glideVersion",
+            autolayout            : "com.zhy:autolayout:$autolayoutVersion",
+            eventbus              : "org.greenrobot:eventbus:$eventbusVersion",
+            okhttp3               : "com.squareup.okhttp3:okhttp:$okhttp3Version",
+            retrofit              : "com.squareup.retrofit2:retrofit:$retrofitVersion",
+            converter_gson        : "com.squareup.retrofit2:converter-gson:$retrofitVersion",
+            adapter_rxjava        : "com.squareup.retrofit2:adapter-rxjava2:$retrofitVersion",
+            rxbinding             : "com.jakewharton.rxbinding:rxbinding:$rxbindingVersion",
+            rxlifecycle           : "com.trello.rxlifecycle2:rxlifecycle:$rxlifecycleVersion",
+            rxlifecycle_android   : "com.trello.rxlifecycle2:rxlifecycle-android:$rxlifecycleVersion",
+            rxlifecycle_components: "com.trello.rxlifecycle2:rxlifecycle-components:$rxlifecycleVersion",
+            rxandroid             : "io.reactivex.rxjava2:rxandroid:$rxandroidVersion",
+            rxjava                : "io.reactivex.rxjava2:rxjava:$rxjavaVersion",
+            arouter_api                : "com.alibaba:arouter-api:$arouter_apiVersion",
+            arouter_compiler                : "com.alibaba:arouter-compiler:$arouter_compilerVersion",
+    ]
+
+
+}
+

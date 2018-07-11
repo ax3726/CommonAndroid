@@ -29,7 +29,26 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:text="获取数据" />
-
+            <Button
+                android:onClick="installChajian"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="加载插件" />
+            <Button
+                android:onClick="startChajian"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="启动插件" />
+            <Button
+                android:onClick="startChajian2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="启动插件2" />
+            <Button
+                android:onClick="testDownLoad"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="测试下载" />
         </LinearLayout>
     </com.lm.base.widget.MyScrollView>
 </layout>

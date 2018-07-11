@@ -5,9 +5,12 @@
     <color name="colorPrimary_two">#697CDE</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
-    <color name="click_bg">#45000000</color>
+    <color name="click_bg">#77000000</color>
     <color name="colorWhite">#ffffff</color>
     <color name="color4d4d4d">#4d4d4d</color>
     <color name="colorcccccc">#cccccc</color>
     <color name="colorf1f1f1">#f1f1f1</color>
+    <color name="colore969292">#969292</color>
+    <color name="colore6e6e6">#e6e6e6</color>
+
 </resources>

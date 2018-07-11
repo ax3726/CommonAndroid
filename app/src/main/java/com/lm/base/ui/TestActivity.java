@@ -1,19 +1,22 @@
 package com.lm.base.ui;
 
 import android.support.v7.widget.LinearLayoutManager;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
 
+
 import com.lm.base.R;
-import com.lm.base.base.BaseActivity;
-import com.lm.base.base.BasePresenter;
 import com.lm.base.databinding.ActivityTestBinding;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import ml.gsy.com.library.adapters.recyclerview.CommonAdapter;
-import ml.gsy.com.library.adapters.recyclerview.base.ViewHolder;
+
+import com.lm.lib_common.adapters.recyclerview.CommonAdapter;
+import com.lm.lib_common.adapters.recyclerview.base.ViewHolder;
+import com.lm.lib_common.base.BaseActivity;
+import com.lm.lib_common.base.BasePresenter;
 
 public class TestActivity extends BaseActivity<BasePresenter, ActivityTestBinding> {
 
@@ -40,6 +43,10 @@ public class TestActivity extends BaseActivity<BasePresenter, ActivityTestBindin
         return false;
     }
 
+
+    public String isEmpty(String str) {
+        return TextUtils.isEmpty(str) ? "" : str;
+    }
 
     @Override
     public int getLayoutId() {
@@ -73,7 +80,12 @@ public class TestActivity extends BaseActivity<BasePresenter, ActivityTestBindin
             @Override
             protected void convert(ViewHolder holder, String s, int position) {
                 TextView txt = holder.getView(R.id.tv_txt);
-                txt.setText("我是第" + (position + 1) + "项");
+
+                txt.setText(isEmpty("我是第" + (position + 1) + "项"));
+
+
+                holder.setText(R.id.tv_txt, "我是第" + (position + 1) + "项");
+
             }
         };
         mBinding.rcBody.setLayoutManager(new LinearLayoutManager(aty));

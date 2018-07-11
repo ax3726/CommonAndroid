@@ -1,0 +1,42 @@
+base说明：
+
+Activity配置：
+    所有的Presenter继承BasePresenter,
+    所有的IView接口回调继承BaseView
+
+Fragment配置：
+    所有的Presenter继承BaseFragmentPresenter,
+    所有的IView接口回调继承BaseFragmentView
+
+baseActivity/baseFragment通用属性和方法:
+ 属性：
+   自定义Presenter:mPresenter
+
+   自定义ViewDataBinding:mBinding
+
+   Activity:aty
+
+   通用头部控件: TitleBarLayout mTitleBarLayout
+
+   布局状态切换: StateModel mStateModel
+
+ 方法：
+    显示加载框:showWaitDialog()
+
+    隐藏加载框:hideWaitDialog()
+
+    是否显示通用头部:重写isTitleBar()方法返回True/False
+
+    是否加载自定义Presenter:重写isPrestener()方法返回True/False,如果返回的是false, createPresenter()返回null即可
+
+    网络请求线程切换并处理内存泄漏(执行在IO线程,处理在主线程):callbackOnIOToMainThread()
+
+    网络请求订阅者BaseNetObserver
+
+
+
+
+
+
+
+
