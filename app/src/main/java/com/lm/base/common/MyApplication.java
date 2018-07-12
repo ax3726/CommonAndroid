@@ -20,6 +20,9 @@ import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.footer.ClassicsFooter;
 import com.scwang.smartrefresh.layout.header.ClassicsHeader;
 
+import io.realm.Realm;
+import io.realm.RealmConfiguration;
+
 
 /**
  * Created by Administrator on 2017/11/22 0022.
@@ -45,8 +48,9 @@ public class MyApplication extends ThisApplication {
                 Utils.getCacheDirectory(this, Environment.DIRECTORY_DOCUMENTS).getAbsolutePath());
 
 
-
     }
+
+
 
     //static 代码段可以防止内存泄露
     static {

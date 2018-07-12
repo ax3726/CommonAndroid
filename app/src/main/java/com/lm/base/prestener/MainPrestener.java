@@ -34,7 +34,7 @@ import okhttp3.ResponseBody;
 public class MainPrestener extends BasePresenter<IMainView> {
 
     public void getUserInfo() {
-        Api.getApi().search("15170193726", "fffffff",new TestModel("测试name==黎明"))
+        Api.getApi().search("15170193726", "fffffff")
                 .compose(callbackOnIOToMainThread())
                 .subscribe(new BaseNetListener<UserInfoModel>(this,true) {
                     @Override

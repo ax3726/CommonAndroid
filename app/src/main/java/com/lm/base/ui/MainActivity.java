@@ -11,8 +11,10 @@ import android.widget.Toast;
 import com.lm.base.R;
 
 import com.lm.base.common.Api;
+import com.lm.base.common.MyApplication;
 import com.lm.base.databinding.ActivityMainBinding;
 
+import com.lm.base.model.RealmModel;
 import com.lm.base.model.UserInfoModel;
 import com.lm.base.prestener.MainPrestener;
 import com.lm.base.view.IMainView;
@@ -65,12 +67,12 @@ public class MainActivity extends BaseActivity<MainPrestener, ActivityMainBindin
     @Override
     protected void initData() {
 
-        mBinding.btn1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(MaterListActivity.class);
-            }
-        });
+            mBinding.btn1.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    startActivity(MaterListActivity.class);
+                }
+            });
         mBinding.btn2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

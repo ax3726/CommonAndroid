@@ -26,7 +26,7 @@ import retrofit2.http.Url;
 public interface ApiService {
     @POST("selectUserInfo.shtml")
     //获取用户信息
-    Flowable<UserInfoModel> search(@Query("phone") String query, @Query("token") String token, @Body TestModel testModel);
+    Flowable<UserInfoModel> search(@Query("phone") String query, @Query("token") String token);
     @POST("selectUserInfo.shtml")
 
         //获取用户信息

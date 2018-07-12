@@ -1,5 +1,6 @@
 apply plugin: 'com.android.application'
 apply plugin:'me.tatarka.retrolambda'
+
 android {
     compileSdkVersion build_versions.compile_sdk
     buildToolsVersion build_versions.build_tools
