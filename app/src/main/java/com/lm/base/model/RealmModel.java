@@ -1,14 +1,12 @@
 package com.lm.base.model;
 
-import io.realm.RealmObject;
-import io.realm.annotations.PrimaryKey;
 
 /**
  * Created by Administrator on 2018/7/11.
  */
 
-public class RealmModel extends RealmObject{
-    @PrimaryKey
+public class RealmModel {
+
     private String id;
     private String name;
 

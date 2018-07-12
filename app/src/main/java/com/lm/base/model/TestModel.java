@@ -1,6 +1,6 @@
 package com.lm.base.model;
 
-import io.realm.RealmObject;
+
 
 /**
  * Created by Administrator on 2018/4/28.

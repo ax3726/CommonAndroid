@@ -19,6 +19,7 @@ import com.lm.base.model.UserInfoModel;
 import com.lm.base.prestener.MainPrestener;
 import com.lm.base.view.IMainView;
 import com.lm.lib_common.base.BaseActivity;
+import com.lm.lib_common.base.BaseNetListener;
 import com.lm.lib_common.base.EmptyState;
 import com.lm.lib_common.base.StateModel;
 import com.lm.lib_common.utils.AndroidBug5497Workaround;
@@ -79,7 +80,7 @@ public class MainActivity extends BaseActivity<MainPrestener, ActivityMainBindin
                 startActivity(TestActivity.class);
             }
         });
-
+     //   mStateModel.setEmptyState(EmptyState.PROGRESS);
 
         AndroidBug5497Workaround.assistActivity(findViewById(android.R.id.content));// 解决输入法弹出时布局被顶上去的BUG
 
@@ -88,7 +89,7 @@ public class MainActivity extends BaseActivity<MainPrestener, ActivityMainBindin
         //mStateModel.setEmptyState(EmptyState.EMPTY);//设置页面状态为暂无数据
         //EmptyState类里面可自定义添加状态
 
-      /*  new Handler().postDelayed(new Runnable() {
+   /*   new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
                 mStateModel.setEmptyState(EmptyState.EMPTY);
@@ -96,7 +97,18 @@ public class MainActivity extends BaseActivity<MainPrestener, ActivityMainBindin
         }, 3000);*/
         mPresenter.getUserInfo1();
 
+        Api.getApi().search1()
+                .compose(callbackOnIOToMainThread())
+                .subscribe(new BaseNetListener<UserInfoModel>(this) {
+                    @Override
+                    public void onSuccess(UserInfoModel userInfoModel) {
 
+                    }
+
+                    @Override
+                    public void onFail(String errMsg) {
+                    }
+                });
         mStateModel.setIOnClickListener(new StateModel.IOnClickListener() {
             @Override
             public void click(View view) {

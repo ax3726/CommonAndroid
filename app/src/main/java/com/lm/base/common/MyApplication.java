@@ -20,8 +20,7 @@ import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.footer.ClassicsFooter;
 import com.scwang.smartrefresh.layout.header.ClassicsHeader;
 
-import io.realm.Realm;
-import io.realm.RealmConfiguration;
+
 
 
 /**
