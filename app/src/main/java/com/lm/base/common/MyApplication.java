@@ -49,7 +49,9 @@ public class MyApplication extends ThisApplication {
 
     }
 
-
+    public static String getBase_Path() {
+        return Base_Path;
+    }
 
     //static 代码段可以防止内存泄露
     static {
