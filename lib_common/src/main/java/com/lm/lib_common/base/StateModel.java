@@ -24,8 +24,7 @@ public class StateModel extends BaseObservable {
         mContext = context;
     }
 
-
-    private Context mContext=ThisApplication.getInstance();
+    private Context mContext= ThisApplication.getInstance();
 
     @EmptyState
     private int emptyState = EmptyState.NORMAL;

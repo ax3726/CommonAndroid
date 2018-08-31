@@ -2,29 +2,24 @@ package com.lm.lib_common.base;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
-import android.graphics.Color;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.bumptech.glide.DrawableTypeRequest;
 import com.bumptech.glide.Glide;
-
-
 import com.lm.lib_common.R;
 import com.lm.lib_common.databinding.WidgetLayoutEmptyBinding;
-
 import com.lm.lib_common.net.RetryWithDelayFunction;
-
+import com.lm.lib_common.utils.ParseJsonUtils;
 import com.lm.lib_common.widget.LoadingDialog;
 import com.lm.lib_common.widget.TitleBarLayout;
 import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
@@ -34,6 +29,7 @@ import com.zhy.autolayout.AutoLinearLayout;
 import io.reactivex.FlowableTransformer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
+import okhttp3.RequestBody;
 
 
 /**
@@ -41,7 +37,7 @@ import io.reactivex.schedulers.Schedulers;
  * Description:
  */
 
-public abstract class BaseActivity<P extends BasePresenter, B extends ViewDataBinding> extends RxAppCompatActivity implements BaseView,BaseHttpListener {
+public abstract class BaseActivity<P extends BasePresenter, B extends ViewDataBinding> extends RxAppCompatActivity implements BaseView, BaseHttpListener {
 
     protected P mPresenter;
     protected B mBinding;
@@ -53,12 +49,13 @@ public abstract class BaseActivity<P extends BasePresenter, B extends ViewDataBi
 
     protected TitleBarLayout mTitleBarLayout = null;//头部控件
 
-    protected StateModel mStateModel =new StateModel();
+    protected StateModel mStateModel = new StateModel();//
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {//添加沉浸式状态栏
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+     /*   if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {//添加沉浸式状态栏
             Window window = getWindow();
             window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -70,7 +67,7 @@ public abstract class BaseActivity<P extends BasePresenter, B extends ViewDataBi
                 window.setStatusBarColor(Color.TRANSPARENT);
             }
         }
-
+    */
         if (isPrestener()) {
             mPresenter = createPresenter();
             mPresenter.attachView(this);
@@ -78,8 +75,8 @@ public abstract class BaseActivity<P extends BasePresenter, B extends ViewDataBi
         aty = this;
         setActivityView();
         initTitleBar();
-        initView(savedInstanceState);
         initData();
+        initView(savedInstanceState);
         initEvent();
     }
 
@@ -98,7 +95,7 @@ public abstract class BaseActivity<P extends BasePresenter, B extends ViewDataBi
             WidgetLayoutEmptyBinding emptyBinding = DataBindingUtil.inflate(getLayoutInflater(), R.layout.widget_layout_empty, null, false);
             emptyBinding.setStateModel(mStateModel);
             fly.addView(emptyBinding.getRoot());
-            lly.addView(fly);
+            lly.addView(fly, new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
             setContentView(lly);
             mTitleBarLayout.setLeftListener(new View.OnClickListener() {
                 @Override
@@ -166,7 +163,7 @@ public abstract class BaseActivity<P extends BasePresenter, B extends ViewDataBi
      * @return
      */
     protected boolean isTitleBar() {
-        return true;
+        return false;
     }
 
     /**
@@ -175,17 +172,13 @@ public abstract class BaseActivity<P extends BasePresenter, B extends ViewDataBi
      * @return
      */
     protected boolean isPrestener() {
-        return true;
+        return false;
     }
 
-    @Override
-    public int getLayoutId() {
-        return 0;
-    }
 
     @Override
     public void showToast(final String s) {
-        if (aty!=null) {
+        if (aty != null) {
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
@@ -199,7 +192,7 @@ public abstract class BaseActivity<P extends BasePresenter, B extends ViewDataBi
 
     @Override
     public void showToast(final int id) {
-        if (aty!=null) {
+        if (aty != null) {
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
@@ -210,6 +203,7 @@ public abstract class BaseActivity<P extends BasePresenter, B extends ViewDataBi
 
     }
 
+    protected abstract int getLayoutId();
 
     protected abstract P createPresenter();
 
@@ -226,7 +220,7 @@ public abstract class BaseActivity<P extends BasePresenter, B extends ViewDataBi
 
     @Override
     public void showWaitDialog(boolean isCancel, DialogInterface.OnCancelListener cancelListener) {
-         showWaitDialog("", isCancel, cancelListener);
+        showWaitDialog("", isCancel, cancelListener);
     }
 
 
@@ -250,7 +244,7 @@ public abstract class BaseActivity<P extends BasePresenter, B extends ViewDataBi
      */
 
     public void showWaitDialog(String message, boolean isCancel, DialogInterface.OnCancelListener cancelListener) {
-        if (aty==null) {
+        if (aty == null) {
             return;
         }
         if (mLoadingDialog == null) {
@@ -274,7 +268,7 @@ public abstract class BaseActivity<P extends BasePresenter, B extends ViewDataBi
      * 隐藏
      */
     public void hideWaitDialog() {
-        if (aty==null) {
+        if (aty == null) {
             return;
         }
         if (mLoadingDialog != null && mLoadingDialog.isShowing()) {
@@ -301,7 +295,8 @@ public abstract class BaseActivity<P extends BasePresenter, B extends ViewDataBi
 
 
     @Override
-    public void setEmptyState(@EmptyState int emptyState) {
+    public void setEmptyState(@com.lm.lib_common.base.EmptyState int emptyState) {
         mStateModel.setEmptyState(emptyState);
     }
+
 }

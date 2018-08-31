@@ -119,7 +119,7 @@ public class PermissionsManager {
    * @param action      the action to add to the current list of pending actions.
    */
   private synchronized void addPendingAction(@NonNull String[] permissions,
-      @Nullable PermissionsResultAction action) {
+      @Nullable com.lm.lib_common.utils.runtimepermission.PermissionsResultAction action) {
     if (action == null) {
       return;
     }
@@ -135,9 +135,9 @@ public class PermissionsManager {
    *
    * @param action the action to remove
    */
-  private synchronized void removePendingAction(@Nullable PermissionsResultAction action) {
+  private synchronized void removePendingAction(@Nullable com.lm.lib_common.utils.runtimepermission.PermissionsResultAction action) {
     for (Iterator<WeakReference<PermissionsResultAction>> iterator = mPendingActions.iterator();
-        iterator.hasNext(); ) {
+         iterator.hasNext(); ) {
       WeakReference<PermissionsResultAction> weakRef = iterator.next();
       if (weakRef.get() == action || weakRef.get() == null) {
         iterator.remove();
@@ -203,7 +203,7 @@ public class PermissionsManager {
    */
   @SuppressWarnings("unused")
   public synchronized void requestAllManifestPermissionsIfNecessary(final @Nullable Activity activity,
-      final @Nullable PermissionsResultAction action) {
+      final @Nullable com.lm.lib_common.utils.runtimepermission.PermissionsResultAction action) {
     if (activity == null) {
       return;
     }
@@ -228,7 +228,7 @@ public class PermissionsManager {
   @SuppressWarnings("unused")
   public synchronized void requestPermissionsIfNecessaryForResult(@Nullable Activity activity,
       @NonNull String[] permissions,
-      @Nullable PermissionsResultAction action) {
+      @Nullable com.lm.lib_common.utils.runtimepermission.PermissionsResultAction action) {
     if (activity == null) {
       return;
     }
@@ -264,7 +264,7 @@ public class PermissionsManager {
   @SuppressWarnings("unused")
   public synchronized void requestPermissionsIfNecessaryForResult(@NonNull Fragment fragment,
       @NonNull String[] permissions,
-      @Nullable PermissionsResultAction action) {
+      @Nullable com.lm.lib_common.utils.runtimepermission.PermissionsResultAction action) {
     Activity activity = fragment.getActivity();
     if (activity == null) {
       return;
@@ -305,7 +305,7 @@ public class PermissionsManager {
     }
     Iterator<WeakReference<PermissionsResultAction>> iterator = mPendingActions.iterator();
     while (iterator.hasNext()) {
-      PermissionsResultAction action = iterator.next().get();
+      com.lm.lib_common.utils.runtimepermission.PermissionsResultAction action = iterator.next().get();
       for (int n = 0; n < size; n++) {
         if (action == null || action.onResult(permissions[n], results[n])) {
           iterator.remove();
@@ -329,7 +329,7 @@ public class PermissionsManager {
    */
   private void doPermissionWorkBeforeAndroidM(@NonNull Activity activity,
       @NonNull String[] permissions,
-      @Nullable PermissionsResultAction action) {
+      @Nullable com.lm.lib_common.utils.runtimepermission.PermissionsResultAction action) {
     for (String perm : permissions) {
       if (action != null) {
         if (!mPermissions.contains(perm)) {
@@ -358,7 +358,7 @@ public class PermissionsManager {
   @NonNull
   private List<String> getPermissionsListToRequest(@NonNull Activity activity,
       @NonNull String[] permissions,
-      @Nullable PermissionsResultAction action) {
+      @Nullable com.lm.lib_common.utils.runtimepermission.PermissionsResultAction action) {
     List<String> permList = new ArrayList<String>(permissions.length);
     for (String perm : permissions) {
       if (!mPermissions.contains(perm)) {

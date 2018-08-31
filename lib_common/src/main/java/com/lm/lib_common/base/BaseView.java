@@ -15,7 +15,7 @@ import io.reactivex.Observable;
 
 public interface BaseView {
 
-    int getLayoutId();
+
 
     void showToast(String s);
 

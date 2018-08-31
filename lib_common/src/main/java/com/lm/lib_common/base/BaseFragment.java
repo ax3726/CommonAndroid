@@ -15,12 +15,10 @@ import android.widget.Toast;
 
 import com.bumptech.glide.DrawableTypeRequest;
 import com.bumptech.glide.Glide;
-
-
 import com.lm.lib_common.R;
-
 import com.lm.lib_common.databinding.WidgetLayoutEmptyBinding;
 import com.lm.lib_common.net.RetryWithDelayFunction;
+import com.lm.lib_common.utils.ParseJsonUtils;
 import com.lm.lib_common.widget.LoadingDialog;
 import com.lm.lib_common.widget.TitleBarLayout;
 import com.trello.rxlifecycle2.components.support.RxFragment;
@@ -30,6 +28,7 @@ import com.zhy.autolayout.AutoLinearLayout;
 import io.reactivex.FlowableTransformer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
+import okhttp3.RequestBody;
 
 
 /**
@@ -37,7 +36,7 @@ import io.reactivex.schedulers.Schedulers;
  * Description:
  */
 
-public abstract class BaseFragment<P extends BaseFragmentPresenter, B extends ViewDataBinding> extends RxFragment implements BaseFragmentView,BaseHttpListener {
+public abstract class BaseFragment<P extends BaseFragmentPresenter, B extends ViewDataBinding> extends RxFragment implements BaseFragmentView, BaseHttpListener {
 
     /**
      * Fragment根视图
@@ -51,7 +50,7 @@ public abstract class BaseFragment<P extends BaseFragmentPresenter, B extends Vi
      */
     private LoadingDialog mLoadingDialog;
     protected TitleBarLayout mTitleBarLayout = null;//头部控件
-    protected StateModel mStateModel =new StateModel();
+    protected StateModel mStateModel = new StateModel();//
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -62,10 +61,9 @@ public abstract class BaseFragment<P extends BaseFragmentPresenter, B extends Vi
             mPresenter = createPresenter();
             mPresenter.attachView(this);
         }
-
         initTitleBar();
-        initView(savedInstanceState);
         initData();
+        initView(savedInstanceState);
         initEvent();
         return mFragmentRootView;
     }
@@ -90,7 +88,7 @@ public abstract class BaseFragment<P extends BaseFragmentPresenter, B extends Vi
             WidgetLayoutEmptyBinding emptyBinding = DataBindingUtil.inflate(inflater, R.layout.widget_layout_empty, null, false);
             emptyBinding.setStateModel(mStateModel);
             fly.addView(emptyBinding.getRoot());
-            lly.addView(fly);
+            lly.addView(fly, new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
             mTitleBarLayout.setLeftListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -167,13 +165,9 @@ public abstract class BaseFragment<P extends BaseFragmentPresenter, B extends Vi
      * @return
      */
     protected boolean isPrestener() {
-        return true;
+        return false;
     }
 
-    @Override
-    public int getLayoutId() {
-        return 0;
-    }
 
     @Override
     public void showToast(final String s) {
@@ -198,6 +192,7 @@ public abstract class BaseFragment<P extends BaseFragmentPresenter, B extends Vi
     }
 
 
+    protected abstract int getLayoutId();
 
     protected abstract P createPresenter();
 
@@ -209,12 +204,12 @@ public abstract class BaseFragment<P extends BaseFragmentPresenter, B extends Vi
      */
 
     public void showWaitDialog(String message) {
-         showWaitDialog(message, true, null);
+        showWaitDialog(message, true, null);
     }
 
     @Override
     public void showWaitDialog(boolean isCancel, DialogInterface.OnCancelListener cancelListener) {
-         showWaitDialog("", isCancel, cancelListener);
+        showWaitDialog("", isCancel, cancelListener);
     }
 
 
@@ -225,7 +220,7 @@ public abstract class BaseFragment<P extends BaseFragmentPresenter, B extends Vi
      */
 
     public void showWaitDialog() {
-         showWaitDialog("", true, null);
+        showWaitDialog("", true, null);
     }
 
     /**
@@ -238,7 +233,7 @@ public abstract class BaseFragment<P extends BaseFragmentPresenter, B extends Vi
      */
 
     public void showWaitDialog(String message, boolean isCancel, DialogInterface.OnCancelListener cancelListener) {
-        if (aty==null) {
+        if (aty == null) {
             return;
         }
         if (mLoadingDialog == null) {
@@ -254,7 +249,6 @@ public abstract class BaseFragment<P extends BaseFragmentPresenter, B extends Vi
         }
 
 
-
     }
     /***************************************************************************
      * 弹出窗方法
@@ -263,7 +257,7 @@ public abstract class BaseFragment<P extends BaseFragmentPresenter, B extends Vi
      * 隐藏
      */
     public void hideWaitDialog() {
-        if (aty==null) {
+        if (aty == null) {
             return;
         }
         if (mLoadingDialog != null && mLoadingDialog.isShowing()) {
@@ -284,7 +278,7 @@ public abstract class BaseFragment<P extends BaseFragmentPresenter, B extends Vi
 
     public <T> FlowableTransformer<T, T> callbackOnIOToMainThread() {
         return tObservable -> tObservable.subscribeOn(Schedulers.io())
-                  .retryWhen(RetryWithDelayFunction.create())
+                .retryWhen(RetryWithDelayFunction.create())
                 .filter(t -> aty != null).observeOn(AndroidSchedulers.mainThread())
                 .compose(bindToLifecycle());
     }

@@ -25,7 +25,7 @@ public abstract class BaseNetSubscriber<T> implements Subscriber<T> {
     public BaseNetSubscriber(BaseActivity aty) {
         this.aty=aty;
     }
-    public BaseNetSubscriber(BaseActivity aty,boolean  bl) {
+    public BaseNetSubscriber(BaseActivity aty, boolean  bl) {
         this.aty=aty;
         if (aty!=null&&bl) {
             aty.showWaitDialog();

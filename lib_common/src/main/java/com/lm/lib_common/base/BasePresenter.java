@@ -19,7 +19,7 @@ import io.reactivex.schedulers.Schedulers;
  * Description:
  */
 
-public class BasePresenter<V extends BaseView> implements IBasePresenter<V> , LifecycleProvider<ActivityEvent>,BaseHttpListener {
+public class BasePresenter<V extends BaseView> implements IBasePresenter<V>, LifecycleProvider<ActivityEvent>,BaseHttpListener {
 
 
     protected V mView;
@@ -57,7 +57,7 @@ public class BasePresenter<V extends BaseView> implements IBasePresenter<V> , Li
 
     public <T> FlowableTransformer<T, T> callbackOnIOToMainThread() {
         return tObservable -> tObservable.subscribeOn(Schedulers.io())
-               .retryWhen(RetryWithDelayFunction.create())
+                .retryWhen(RetryWithDelayFunction.create())
                 .observeOn(AndroidSchedulers.mainThread())
                 .filter(t -> BasePresenter.this.isViewAttach())
                 .compose(BasePresenter.this.bindToLifecycle());

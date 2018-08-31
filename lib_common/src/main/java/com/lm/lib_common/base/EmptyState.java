@@ -10,7 +10,7 @@ import java.lang.annotation.RetentionPolicy;
  * <p>
  * Created by Administrator on 2017/4/5.
  */
-@IntDef({EmptyState.NORMAL, EmptyState.PROGRESS, EmptyState.EMPTY, EmptyState.NET_ERROR, EmptyState.NOT_AVAILABLE,EmptyState.EXPAND})
+@IntDef({EmptyState.NORMAL, EmptyState.PROGRESS, EmptyState.EMPTY, EmptyState.NET_ERROR, EmptyState.NOT_AVAILABLE, EmptyState.EXPAND})
 @Retention(RetentionPolicy.SOURCE)
 public @interface EmptyState {
 

@@ -53,5 +53,4 @@ dependencies {
     compile Dependencies.rxlifecycle_components
     compile Dependencies.rxandroid
     compile Dependencies.rxjava
-    compile Dependencies.arouter_api
 }

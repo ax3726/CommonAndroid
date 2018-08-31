@@ -2,7 +2,6 @@ package com.lm.lib_common.base;
 
 import android.app.Application;
 import android.content.Context;
-import android.net.wifi.WifiManager;
 
 /**
  * Created by LiMing on 2016/11/12.

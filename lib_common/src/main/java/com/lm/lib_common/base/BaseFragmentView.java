@@ -15,7 +15,6 @@ import io.reactivex.Observable;
 
 public interface BaseFragmentView {
 
-    int getLayoutId();
 
     void showToast(String s);
 

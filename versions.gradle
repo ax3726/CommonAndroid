@@ -38,8 +38,6 @@ ext {
             rxlifecycle_components: "com.trello.rxlifecycle2:rxlifecycle-components:$rxlifecycleVersion",
             rxandroid             : "io.reactivex.rxjava2:rxandroid:$rxandroidVersion",
             rxjava                : "io.reactivex.rxjava2:rxjava:$rxjavaVersion",
-            arouter_api                : "com.alibaba:arouter-api:$arouter_apiVersion",
-            arouter_compiler                : "com.alibaba:arouter-compiler:$arouter_compilerVersion",
     ]
 
 
