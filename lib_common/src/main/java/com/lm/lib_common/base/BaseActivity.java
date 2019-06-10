@@ -19,8 +19,8 @@ import com.bumptech.glide.Glide;
 import com.lm.lib_common.R;
 import com.lm.lib_common.databinding.WidgetLayoutEmptyBinding;
 import com.lm.lib_common.net.RetryWithDelayFunction;
-import com.lm.lib_common.utils.ParseJsonUtils;
 import com.lm.lib_common.widget.LoadingDialog;
+import com.lm.lib_common.widget.PageStateModel;
 import com.lm.lib_common.widget.TitleBarLayout;
 import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
 import com.zhy.autolayout.AutoFrameLayout;
@@ -29,7 +29,6 @@ import com.zhy.autolayout.AutoLinearLayout;
 import io.reactivex.FlowableTransformer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
-import okhttp3.RequestBody;
 
 
 /**
@@ -49,7 +48,7 @@ public abstract class BaseActivity<P extends BasePresenter, B extends ViewDataBi
 
     protected TitleBarLayout mTitleBarLayout = null;//头部控件
 
-    protected StateModel mStateModel = new StateModel();//
+    protected PageStateModel mPageStateModelm = new PageStateModel();//
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -93,7 +92,7 @@ public abstract class BaseActivity<P extends BasePresenter, B extends ViewDataBi
             AutoFrameLayout fly = new AutoFrameLayout(aty);
             fly.addView(mBinding.getRoot());
             WidgetLayoutEmptyBinding emptyBinding = DataBindingUtil.inflate(getLayoutInflater(), R.layout.widget_layout_empty, null, false);
-            emptyBinding.setStateModel(mStateModel);
+            emptyBinding.setPageState(mPageStateModelm);
             fly.addView(emptyBinding.getRoot());
             lly.addView(fly, new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
             setContentView(lly);
@@ -107,7 +106,7 @@ public abstract class BaseActivity<P extends BasePresenter, B extends ViewDataBi
             AutoFrameLayout fly = new AutoFrameLayout(aty);
             fly.addView(mBinding.getRoot());
             WidgetLayoutEmptyBinding emptyBinding = DataBindingUtil.inflate(getLayoutInflater(), R.layout.widget_layout_empty, null, false);
-            emptyBinding.setStateModel(mStateModel);
+            emptyBinding.setPageState(mPageStateModelm);
             fly.addView(emptyBinding.getRoot());
             setContentView(fly);
         }
@@ -163,7 +162,7 @@ public abstract class BaseActivity<P extends BasePresenter, B extends ViewDataBi
      * @return
      */
     protected boolean isTitleBar() {
-        return false;
+        return true;
     }
 
     /**
@@ -172,7 +171,7 @@ public abstract class BaseActivity<P extends BasePresenter, B extends ViewDataBi
      * @return
      */
     protected boolean isPrestener() {
-        return false;
+        return true;
     }
 
 
@@ -296,7 +295,7 @@ public abstract class BaseActivity<P extends BasePresenter, B extends ViewDataBi
 
     @Override
     public void setEmptyState(@com.lm.lib_common.base.EmptyState int emptyState) {
-        mStateModel.setEmptyState(emptyState);
+        mPageStateModelm.setEmptyState(emptyState);
     }
 
 }

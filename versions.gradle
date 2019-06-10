@@ -1,12 +1,12 @@
 def build_versions = [:]
 build_versions.min_sdk = 16
-build_versions.target_sdk = 23
-build_versions.compile_sdk = 25
-build_versions.build_tools = "25.0.2"
+build_versions.target_sdk = 28
+build_versions.compile_sdk = 26
+build_versions.build_tools = "26.0.3"
 ext.build_versions = build_versions
 
 ext {
-    supportVersion = '25.3.1'
+    supportVersion = '26.1.0'
     gsonVersion = '2.3.1'
     glideVersion = '3.6.1'
     autolayoutVersion = '1.4.3'
@@ -38,6 +38,7 @@ ext {
             rxlifecycle_components: "com.trello.rxlifecycle2:rxlifecycle-components:$rxlifecycleVersion",
             rxandroid             : "io.reactivex.rxjava2:rxandroid:$rxandroidVersion",
             rxjava                : "io.reactivex.rxjava2:rxjava:$rxjavaVersion",
+            cardview                : "com.android.support:cardview-v7:$supportVersion"
     ]
 
 

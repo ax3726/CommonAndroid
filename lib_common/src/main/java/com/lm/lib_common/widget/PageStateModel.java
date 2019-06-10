@@ -1,4 +1,4 @@
-package com.lm.lib_common.base;
+package com.lm.lib_common.widget;
 
 import android.content.Context;
 import android.databinding.BaseObservable;
@@ -8,6 +8,9 @@ import android.support.v4.content.ContextCompat;
 import android.view.View;
 
 import com.lm.lib_common.R;
+import com.lm.lib_common.base.EmptyException;
+import com.lm.lib_common.base.EmptyState;
+import com.lm.lib_common.base.ThisApplication;
 
 
 /**
@@ -16,11 +19,11 @@ import com.lm.lib_common.R;
  * Created by ditclear on 2017/4/5.
  */
 
-public class StateModel extends BaseObservable {
+public class PageStateModel extends BaseObservable {
 
-    public StateModel()
+    public PageStateModel()
     {}
-    public StateModel(Context context) {
+    public PageStateModel(Context context) {
         mContext = context;
     }
 

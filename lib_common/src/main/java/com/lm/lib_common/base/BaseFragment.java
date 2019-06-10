@@ -18,8 +18,8 @@ import com.bumptech.glide.Glide;
 import com.lm.lib_common.R;
 import com.lm.lib_common.databinding.WidgetLayoutEmptyBinding;
 import com.lm.lib_common.net.RetryWithDelayFunction;
-import com.lm.lib_common.utils.ParseJsonUtils;
 import com.lm.lib_common.widget.LoadingDialog;
+import com.lm.lib_common.widget.PageStateModel;
 import com.lm.lib_common.widget.TitleBarLayout;
 import com.trello.rxlifecycle2.components.support.RxFragment;
 import com.zhy.autolayout.AutoFrameLayout;
@@ -28,8 +28,6 @@ import com.zhy.autolayout.AutoLinearLayout;
 import io.reactivex.FlowableTransformer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
-import okhttp3.RequestBody;
-
 
 /**
  * Created by lm on 2017/11/22.
@@ -41,16 +39,16 @@ public abstract class BaseFragment<P extends BaseFragmentPresenter, B extends Vi
     /**
      * Fragment根视图
      */
-    protected View mFragmentRootView;
-    protected P mPresenter;
-    protected B mBinding;
-    protected Activity aty;
+    protected View           mFragmentRootView;
+    protected P              mPresenter;
+    protected B              mBinding;
+    protected Activity       aty;
     /**
      * 加载进度
      */
-    private LoadingDialog mLoadingDialog;
-    protected TitleBarLayout mTitleBarLayout = null;//头部控件
-    protected StateModel mStateModel = new StateModel();//
+    private   LoadingDialog  mLoadingDialog;
+    protected TitleBarLayout mTitleBarLayout  = null;//头部控件
+    protected PageStateModel mPageStateModelm = new PageStateModel();//
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -86,7 +84,7 @@ public abstract class BaseFragment<P extends BaseFragmentPresenter, B extends Vi
             AutoFrameLayout fly = new AutoFrameLayout(aty);
             fly.addView(mBinding.getRoot());
             WidgetLayoutEmptyBinding emptyBinding = DataBindingUtil.inflate(inflater, R.layout.widget_layout_empty, null, false);
-            emptyBinding.setStateModel(mStateModel);
+            emptyBinding.setPageState(mPageStateModelm);
             fly.addView(emptyBinding.getRoot());
             lly.addView(fly, new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
             mTitleBarLayout.setLeftListener(new View.OnClickListener() {
@@ -100,7 +98,7 @@ public abstract class BaseFragment<P extends BaseFragmentPresenter, B extends Vi
             AutoFrameLayout fly = new AutoFrameLayout(aty);
             fly.addView(mBinding.getRoot());
             WidgetLayoutEmptyBinding emptyBinding = DataBindingUtil.inflate(inflater, R.layout.widget_layout_empty, null, false);
-            emptyBinding.setStateModel(mStateModel);
+            emptyBinding.setPageState(mPageStateModelm);
             fly.addView(emptyBinding.getRoot());
             return fly;
         }
@@ -285,7 +283,7 @@ public abstract class BaseFragment<P extends BaseFragmentPresenter, B extends Vi
 
     @Override
     public void setEmptyState(@EmptyState int emptyState) {
-        mStateModel.setEmptyState(emptyState);
+        mPageStateModelm.setEmptyState(emptyState);
     }
 
 }

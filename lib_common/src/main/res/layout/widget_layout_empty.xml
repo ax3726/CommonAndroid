@@ -5,10 +5,11 @@
     <data>
 
         <import type="android.view.View" />
+        <import type="com.lm.lib_common.widget.PageStateModel" />
 
         <variable
-            name="stateModel"
-            type="com.lm.lib_common.base.StateModel" />
+            name="page_state"
+            type="com.lm.lib_common.widget.PageStateModel" />
 
     </data>
 
@@ -19,28 +20,28 @@
         android:background="@color/colorWhite"
         android:clickable="true"
         android:focusableInTouchMode="true"
-        android:visibility="@{stateModel.empty?View.VISIBLE:View.GONE}">
+        android:visibility="@{page_state.empty?View.VISIBLE:View.GONE}">
 
         <!--   <com.lm.base.library.widget.loadingview.LoadingView
                android:id="@+id/loadView"
                android:layout_width="wrap_content"
                android:layout_height="wrap_content"
                android:layout_centerInParent="true"
-               android:visibility="@{stateModel.progress?View.VISIBLE:View.GONE}"
+               android:visibility="@{page_state.progress?View.VISIBLE:View.GONE}"
                app:loadingText="加载中..." />-->
     <ProgressBar
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_centerInParent="true"
             android:indeterminateDrawable="@drawable/page_loading_anim"
-            android:visibility="@{stateModel.progress?View.VISIBLE:View.GONE}" />
+            android:visibility="@{page_state.progress?View.VISIBLE:View.GONE}" />
        <!-- <com.lm.rxtest.widget.CircleProgress
             android:layout_width="wrap_content"
             android:layout_centerInParent="true"
             app:color1="@android:color/holo_red_light"
             app:color2="@android:color/holo_green_light"
             app:color3="@android:color/holo_blue_light"
-            android:visibility="@{stateModel.progress?View.VISIBLE:View.GONE}"
+            android:visibility="@{page_state.progress?View.VISIBLE:View.GONE}"
             android:layout_height="wrap_content" />-->
 
         <LinearLayout
@@ -51,14 +52,14 @@
             android:layout_alignParentTop="true"
             android:gravity="center"
             android:orientation="vertical"
-            android:visibility="@{stateModel.progress?View.INVISIBLE:View.VISIBLE}">
+            android:visibility="@{page_state.progress?View.INVISIBLE:View.VISIBLE}">
 
             <ImageView
                 android:id="@+id/none_data"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:scaleType="fitCenter"
-                android:src="@{stateModel.emptyIconRes}" />
+                android:src="@{page_state.emptyIconRes}" />
 
             <TextView
                 android:id="@+id/tv_msg"
@@ -67,7 +68,7 @@
                 android:layout_below="@+id/none_data"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="10dp"
-                android:text="@{stateModel.currentStateLabel}"
+                android:text="@{page_state.currentStateLabel}"
                 android:textSize="14dp" />
 
             <Button
@@ -77,7 +78,7 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="20dp"
                 android:background="@drawable/shape_cancel_ok"
-                android:onClick="@{stateModel::onStateClick}"
+                android:onClick="@{page_state::onStateClick}"
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp"
                 android:text="点击重新加载"

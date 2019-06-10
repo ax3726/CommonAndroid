@@ -1,31 +1,25 @@
 package com.lm.base.ui;
 
-import android.content.ComponentName;
-import android.content.Intent;
 import android.os.Environment;
 import android.os.Handler;
 import android.util.Log;
 import android.view.View;
-import android.widget.Toast;
 
 import com.lm.base.R;
 
 import com.lm.base.common.Api;
-import com.lm.base.common.MyApplication;
 import com.lm.base.databinding.ActivityMainBinding;
 
-import com.lm.base.model.RealmModel;
 import com.lm.base.model.UserInfoModel;
 import com.lm.base.prestener.MainPrestener;
 import com.lm.base.view.IMainView;
 import com.lm.lib_common.base.BaseActivity;
 import com.lm.lib_common.base.BaseNetListener;
 import com.lm.lib_common.base.EmptyState;
-import com.lm.lib_common.base.StateModel;
+import com.lm.lib_common.widget.PageStateModel;
 import com.lm.lib_common.utils.AndroidBug5497Workaround;
 
 
-import java.lang.reflect.Proxy;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -80,19 +74,19 @@ public class MainActivity extends BaseActivity<MainPrestener, ActivityMainBindin
                 startActivity(TestActivity.class);
             }
         });
-     //   mStateModel.setEmptyState(EmptyState.PROGRESS);
+     //   mPageStateModelm.setEmptyState(EmptyState.PROGRESS);
 
         AndroidBug5497Workaround.assistActivity(findViewById(android.R.id.content));// 解决输入法弹出时布局被顶上去的BUG
 
-        // mStateModel.setEmptyState(EmptyState.PROGRESS);//设置页面状态为加载中
-        //mStateModel.setEmptyState(EmptyState.NORMAL);//设置页面状态为正常
-        //mStateModel.setEmptyState(EmptyState.EMPTY);//设置页面状态为暂无数据
+        // mPageStateModelm.setEmptyState(EmptyState.PROGRESS);//设置页面状态为加载中
+        //mPageStateModelm.setEmptyState(EmptyState.NORMAL);//设置页面状态为正常
+        //mPageStateModelm.setEmptyState(EmptyState.EMPTY);//设置页面状态为暂无数据
         //EmptyState类里面可自定义添加状态
 
    /*   new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                mStateModel.setEmptyState(EmptyState.EMPTY);
+                mPageStateModelm.setEmptyState(EmptyState.EMPTY);
             }
         }, 3000);*/
         mPresenter.getUserInfo1();
@@ -109,15 +103,15 @@ public class MainActivity extends BaseActivity<MainPrestener, ActivityMainBindin
                     public void onFail(String errMsg) {
                     }
                 });
-        mStateModel.setIOnClickListener(new StateModel.IOnClickListener() {
+        mPageStateModelm.setIOnClickListener(new PageStateModel.IOnClickListener() {
             @Override
             public void click(View view) {
-                mStateModel.setEmptyState(EmptyState.PROGRESS);
+                mPageStateModelm.setEmptyState(EmptyState.PROGRESS);
 
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        mStateModel.setEmptyState(EmptyState.NORMAL);
+                        mPageStateModelm.setEmptyState(EmptyState.NORMAL);
                     }
                 }, 3000);
             }
@@ -146,7 +140,7 @@ public class MainActivity extends BaseActivity<MainPrestener, ActivityMainBindin
         RxViewClick(mBinding.btn)
                 .subscribe(aVoid -> {
                   */
-/*  mStateModel.setEmptyState(EmptyState.PROGRESS);
+/*  mPageStateModelm.setEmptyState(EmptyState.PROGRESS);
                     Observable.timer(1000, TimeUnit.MILLISECONDS)
                             .subscribeOn(Schedulers.newThread())
                             .observeOn(AndroidSchedulers.mainThread())
@@ -171,7 +165,7 @@ public class MainActivity extends BaseActivity<MainPrestener, ActivityMainBindin
         // showToast("获取到了!");
      /*   long l = System.currentTimeMillis() - cur;
         Log.e("msg", "inflate之前加载数据耗时:" + l);*/
-        mStateModel.setEmptyState(EmptyState.NORMAL);
+        mPageStateModelm.setEmptyState(EmptyState.NORMAL);
         showToast("获取到了");
     }
 
