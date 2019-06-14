@@ -1,9 +1,0 @@
-<component name="libraryTable">
-  <library name="livenessdetection-proguard-2.4.4">
-    <CLASSES>
-      <root url="jar://$PROJECT_DIR$/../liveness_lib/libs/livenessdetection-proguard-2.4.4.jar!/" />
-    </CLASSES>
-    <JAVADOC />
-    <SOURCES />
-  </library>
-</component>
